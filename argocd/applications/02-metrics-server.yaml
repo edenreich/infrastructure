@@ -1,0 +1,36 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metrics-server
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: build
+  source:
+    chart: metrics-server
+    repoURL: 'https://charts.bitnami.com/bitnami'
+    targetRevision: 6.0.8
+    helm:
+      releaseName: metrics-server
+      values: |
+        apiService:
+          create: true
+        extraArgs:
+          - --kubelet-insecure-tls=true
+          - --kubelet-preferred-address-types=InternalIP
+        pdb:
+          create: true 
+          minAvailable: "1"
+          maxUnavailable: ""
+  destination:
+    name: in-cluster
+    namespace: metrics-server
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - Replace=true
