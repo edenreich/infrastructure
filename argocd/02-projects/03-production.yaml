@@ -1,0 +1,18 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: production
+  namespace: argocd
+  labels:
+    name: production
+spec:
+  description: 'Production project'
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  sourceRepos:
+  - '*'
+  destinations:
+  - name: 'production'
+    namespace: '*'
