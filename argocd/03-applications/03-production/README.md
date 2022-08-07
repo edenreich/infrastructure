@@ -1,6 +1,6 @@
 ## Applications
 
-This setup is based on a bare minimum fresh installation of Linode Kubernetes Engine(LKE).
+This setup is based on a bare minimum fresh installation of Rancher k3s cluster.
 
 ### Install
 

@@ -1,6 +1,6 @@
 ## Applications
 
-This setup is based on a bare minimum fresh installation of Linode Kubernetes Engine(LKE).
+This setup is based on a bare minimum fresh installation of Rancher k3s cluster.
 
 **Note:** **05-github-actions-runner-secret.yaml** make sure the secret is encrypted with the new private key of the deployed sealed-secrets instance so it can be decrypted inside of the cluster correctly.
 
