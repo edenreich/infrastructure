@@ -1,0 +1,46 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: default
+  labels:
+    name: default
+  annotations:
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+spec:
+  rules:
+  - host: eden-reich.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: '/'
+        backend:
+          service:
+            name: production-cluster
+            port: 
+              number: 8080
+  - host: staging.eden-reich.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: '/'
+        backend:
+          service:
+            name: staging-cluster
+            port: 
+              number: 8080
+  - host: argocd.eden-reich.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: '/'
+        backend:
+          service:
+            name: argocd-cluster
+            port: 
+              number: 8080
+  tls:
+  - hosts:
+    - eden-reich.com
+    - staging.eden-reich.com
+    - argocd.eden-reich.com
+    secretName: eden-reich-tls
