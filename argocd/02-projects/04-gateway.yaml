@@ -1,0 +1,18 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: gatway
+  namespace: argocd
+  labels:
+    name: gatway
+spec:
+  description: 'Gatway project'
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  sourceRepos:
+  - '*'
+  destinations:
+  - name: 'gatway'
+    namespace: '*'

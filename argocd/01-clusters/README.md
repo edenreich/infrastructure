@@ -6,4 +6,5 @@ Add each cluster from the current config using ArgoCD CLI:
 argocd cluster add build
 argocd cluster add staging
 argocd cluster add production
+argocd cluster add gateway
 ```
