@@ -5,7 +5,7 @@ metadata:
   namespace: main
 spec:
   type: ExternalName
-  externalName: staging.local
+  externalName: k8s-staging-server.local
   ports:
   - name: http
     port: 8080

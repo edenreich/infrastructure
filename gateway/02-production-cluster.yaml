@@ -5,7 +5,7 @@ metadata:
   namespace: main
 spec:
   type: ExternalName
-  externalName: production.local
+  externalName: k8s-server.local
   ports:
   - name: http
     port: 8080
