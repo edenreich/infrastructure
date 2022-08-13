@@ -10,10 +10,10 @@ spec:
   generators:
   - list:
       elements:
-      # - cluster: staging
-      #   project: staging
-      # - cluster: production
-      #   project: production
+      - cluster: staging
+        project: staging
+      - cluster: production
+        project: production
       - cluster: gateway
         project: gateway
   template:
