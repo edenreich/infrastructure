@@ -28,19 +28,8 @@ spec:
             name: staging-cluster
             port: 
               number: 8080
-  - host: argocd.eden-reich.com
-    http:
-      paths:
-      - pathType: Prefix
-        path: '/'
-        backend:
-          service:
-            name: argocd-cluster
-            port: 
-              number: 8080
   tls:
   - hosts:
     - eden-reich.com
     - staging.eden-reich.com
-    - argocd.eden-reich.com
     secretName: eden-reich.com-tls
