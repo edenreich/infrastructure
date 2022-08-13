@@ -1,9 +1,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: default
+  name: main
+  namespace: main
   labels:
-    name: default
+    name: main
   annotations:
     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
 spec:
