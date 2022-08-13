@@ -43,4 +43,4 @@ spec:
     - eden-reich.com
     - staging.eden-reich.com
     - argocd.eden-reich.com
-    secretName: eden-reich-tls
+    secretName: eden-reich.com-tls
