@@ -3,6 +3,7 @@
 # kind: DNSRecord
 # metadata:
 #   name: "eden-reich.com"
+#   namespace: kubeflare-system
 # spec:
 #   zone: "eden-reich.com"
 #   records:
@@ -21,6 +22,7 @@ apiVersion: crds.kubeflare.io/v1alpha1
 kind: DNSRecord
 metadata:
   name: "staging.eden-reich.com"
+  namespace: kubeflare-system
 spec:
   zone: "eden-reich.com"
   record:

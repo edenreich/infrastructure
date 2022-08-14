@@ -3,6 +3,7 @@ apiVersion: crds.kubeflare.io/v1alpha1
 kind: APIToken
 metadata:
   name: access-token
+  namespace: kubeflare-system
 spec:
   name: access-token
   email: "eden.reich@gmail.com"
