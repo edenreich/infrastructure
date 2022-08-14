@@ -12,13 +12,14 @@ metadata:
 spec:
   project: gateway
   source:
-    chart: bitnami/external-dns
-    repoURL: 'https://charts.bitnami.com/bitnami'
-    targetRevision: 0.12.2
+    repoURL: 'https://github.com/kubernetes-sigs/external-dns.git'
+    path: 'charts/external-dns'
+    targetRevision: v0.12.2
     helm:
       releaseName: external-dns
       values: |
-        cloudflare.secretName: cloudflare
+        provider: cloudflare
+        env: ['{name:CF_API_KEY,valueFrom:{secretKeyRef:{name:cloudflare,key:cf_api_key}}}', '{name:CF_API_EMAIL,valueFrom:{secretKeyRef:{name:cloudflare,key:cf_api_email}}}']
   destination:
     name: gateway
     namespace: external-dns
