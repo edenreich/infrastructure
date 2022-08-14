@@ -59,8 +59,15 @@ spec:
             args:
             - -c
             - |
-              kubectl annotate ingress main external-dns.alpha.kubernetes.io/target="$(curl --silent ifconfig.me)" \
-                --overwrite \
-                --namespace=main \
-                --dry-run=client --output yaml | kubectl --namespace=main apply -f -
+              CURRENT_CONFIGURED_IP=$(kubectl get ingress main --output jsonpath='{.metadata.annotations.external-dns\.alpha\.kubernetes\.io/target}' --namespace=main);
+              CURRENT_IP=$(curl --silent ifconfig.me);
+              if [ "$CURRENT_CONFIGURED_IP" != "$CURRENT_IP" ]; then
+                echo "IP has changed, updating ingress...";
+                kubectl patch ingress main \
+                  --type=merge \
+                  --namespace=main \
+                  --patch '{"metadata":{"annotations":{"external-dns.alpha.kubernetes.io/target":"$CURRENT_IP"}}}';
+              else
+                echo "Current configured IP $CURRENT_CONFIGURED_IP has not changed, it's still the same as $CURRENT_IP, no action required.";
+              fi;
           restartPolicy: OnFailure
