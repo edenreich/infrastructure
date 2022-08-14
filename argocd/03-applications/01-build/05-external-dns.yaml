@@ -19,7 +19,12 @@ spec:
       releaseName: external-dns
       values: |
         provider: cloudflare
-        env: ['{name:CF_API_KEY,valueFrom:{secretKeyRef:{name:cloudflare,key:cf_api_key}}}', '{name:CF_API_EMAIL,valueFrom:{secretKeyRef:{name:cloudflare,key:cf_api_email}}}']
+        env:
+        - name: CF_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: cloudflare
+              key: cf_api_token
   destination:
     name: gateway
     namespace: external-dns
