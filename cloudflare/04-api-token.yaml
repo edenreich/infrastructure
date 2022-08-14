@@ -1,0 +1,12 @@
+---
+apiVersion: crds.kubeflare.io/v1alpha1
+kind: APIToken
+metadata:
+  name: access-token
+spec:
+  name: access-token
+  email: "eden.reich@gmail.com"
+  valueFrom:
+    secretKeyRef:
+      name: cloudflare
+      key: credentials

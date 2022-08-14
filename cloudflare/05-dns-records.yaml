@@ -1,0 +1,26 @@
+# ---
+# apiVersion: crds.kubeflare.io/v1alpha1
+# kind: DNSRecord
+# metadata:
+#   name: "eden-reich.com"
+# spec:
+#   zone: "eden-reich.com"
+#   record:
+#     type: "A"
+#     name: "eden-reich.com"
+#     content: "1.1.1.1"
+#     proxied: true
+#     ttl: 3600
+---
+apiVersion: crds.kubeflare.io/v1alpha1
+kind: DNSRecord
+metadata:
+  name: "staging.eden-reich.com"
+spec:
+  zone: "eden-reich.com"
+  record:
+    type: "CNAME"
+    name: "stage"
+    content: "eden-reich.com"
+    proxied: true
+    ttl: 3600
