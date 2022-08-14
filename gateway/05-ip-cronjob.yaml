@@ -61,5 +61,6 @@ spec:
             - |
               kubectl annotate ingress main external-dns.alpha.kubernetes.io/target="$(curl --silent ifconfig.me)" \
                 --overwrite \
-                --namespace=main
+                --namespace=main \
+                --dry-run=client --output yaml | kubectl --namespace=main apply -f -
           restartPolicy: OnFailure
