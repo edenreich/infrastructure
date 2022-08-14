@@ -7,6 +7,7 @@ metadata:
     name: main
   annotations:
     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+    nginx.ingress.kubernetes.io/use-proxy-protocol: "true"
 spec:
   ingressClassName: nginx
   rules:
