@@ -20,6 +20,7 @@ spec:
       values: |
         provider: cloudflare
         triggerLoopOnEvent: true
+        policy: sync
         extraArgs:
         - --zone-id-filter=41fb639d751b412ad8f699e5d498004f
         env:
