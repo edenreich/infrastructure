@@ -1,0 +1,65 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: main
+  name: ingress-annotater
+rules:
+- apiGroups:
+  - extensions
+  - networking.k8s.io
+  resources:
+  - ingresses
+  verbs:
+  - get
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ingress-annotater
+  namespace: main
+subjects:
+- kind: ServiceAccount
+  name: ip-cronjob
+  namespace: main
+roleRef:
+  kind: Role
+  name: ingress-annotater
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ip-cronjob
+  namespace: main
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ip
+  namespace: main
+spec:
+  schedule: "* * * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  startingDeadlineSeconds: 180
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      activeDeadlineSeconds: 180
+      backoffLimit: 3
+      template:
+        spec:
+          serviceAccountName: ip-cronjob
+          containers:
+          - name: ip
+            image: portainer/kubectl-shell:latest-v1.21.1-arm64
+            command:
+            - /bin/sh
+            args:
+            - -c
+            - |
+              kubectl annotate ingress main external-dns.alpha.kubernetes.io/target="$(curl --silent ifconfig.me)" \
+                --overwrite \
+                --namespace=main
+          restartPolicy: OnFailure
