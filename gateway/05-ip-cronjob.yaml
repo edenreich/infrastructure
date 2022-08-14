@@ -66,7 +66,7 @@ spec:
                 kubectl patch ingress main \
                   --type=merge \
                   --namespace=main \
-                  --patch '{"metadata":{"annotations":{"external-dns.alpha.kubernetes.io/target":"$CURRENT_IP"}}}';
+                  --patch '{"metadata":{"annotations":{"external-dns.alpha.kubernetes.io/target":"'$CURRENT_IP'"}}}';
               else
                 echo "Current configured IP $CURRENT_CONFIGURED_IP has not changed, it's still the same as $CURRENT_IP, no action required.";
               fi;
