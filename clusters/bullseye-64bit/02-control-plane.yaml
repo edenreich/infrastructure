@@ -63,7 +63,7 @@ spec:
             # get the k3s token dynamically
             K3S_TOKEN=$(cat /var/lib/rancher/k3s/server/node-token)
             # get the current k3s server ip and store it as a url
-            K3S_URL=https://`hostname -I | awk '{print $1}'`:6443
+            K3S_URL=https://$(hostname -I | awk '{print $1}'):6443
             # apply that token and url to the secret in build cluster on namespace kubevirt
             kubectl --context build -n kubevirt patch secret bullseye-64bit-cloudinit-nodepool -p '{"data":{"K3S_TOKEN": "'$(echo -n $K3S_TOKEN | base64 -w 0)'", "K3S_URL": "'$(echo -n $K3S_URL | base64 -w 0)'"}}'
         name: cloudinitdisk
