@@ -5,7 +5,7 @@ metadata:
   annotations:
     vm.kubevirt.io/flavor: extra-small
     vm.kubevirt.io/os: bullseye-64bit
-    vm.kubevirt.io/workload: node
+    vm.kubevirt.io/workload: server
   labels:
     kubevirt.io/size: extra-small
     kubevirt.io/domain: raspberry-pi
@@ -13,13 +13,13 @@ metadata:
   name: bullseye-64bit
   namespace: kubevirt
 spec:
-  replicas: 3
+  replicas: 1
   template:
     metadata:
       annotations:
         vm.kubevirt.io/flavor: extra-small
         vm.kubevirt.io/os: bullseye-64bit
-        vm.kubevirt.io/workload: node
+        vm.kubevirt.io/workload: server
       labels:
         kubevirt.io/size: extra-small
         kubevirt.io/domain: raspberry-pi
@@ -35,7 +35,7 @@ spec:
               bus: virtio
             name: cloudinitdisk
         cpu:
-          cores: 1
+          cores: 2
           sockets: 1
           threads: 1
           dedicatedCpuPlacement: true
@@ -43,10 +43,10 @@ spec:
           type: ""
         resources:
           limits:
-            cpu: 1
+            cpu: 2
             memory: 2Gi
           requests:
-            cpu: 1
+            cpu: 2
             memory: 2Gi
       terminationGracePeriodSeconds: 60
       volumes:
@@ -56,8 +56,8 @@ spec:
         name: bullseye-64bit-image
       - cloudInitNoCloud:
           secretRef:
-            name: bullseye-64bit-cloudinit-nodepool
+            name: bullseye-64bit-cloudinit-control-plane
           userData: |
-            # add any custom logic you want to occur on startup here.
-            curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=${INSTALL_K3S_CHANNEL} K3S_URL=${K3S_URL} K3S_TOKEN=${K3S_TOKEN} sh -
+            # install k3s control-plane
+            curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=${INSTALL_K3S_CHANNEL} INSTALL_K3S_EXEC='--no-deploy traefik' sh -
         name: cloudinitdisk

@@ -5,7 +5,7 @@ metadata:
   annotations:
     vm.kubevirt.io/flavor: extra-small
     vm.kubevirt.io/os: bullseye-64bit
-    vm.kubevirt.io/workload: server
+    vm.kubevirt.io/workload: node
   labels:
     kubevirt.io/size: extra-small
     kubevirt.io/domain: raspberry-pi
@@ -13,13 +13,13 @@ metadata:
   name: bullseye-64bit
   namespace: kubevirt
 spec:
-  replicas: 1
+  replicas: 3
   template:
     metadata:
       annotations:
         vm.kubevirt.io/flavor: extra-small
         vm.kubevirt.io/os: bullseye-64bit
-        vm.kubevirt.io/workload: server
+        vm.kubevirt.io/workload: node
       labels:
         kubevirt.io/size: extra-small
         kubevirt.io/domain: raspberry-pi
@@ -35,7 +35,7 @@ spec:
               bus: virtio
             name: cloudinitdisk
         cpu:
-          cores: 2
+          cores: 1
           sockets: 1
           threads: 1
           dedicatedCpuPlacement: true
@@ -43,10 +43,10 @@ spec:
           type: ""
         resources:
           limits:
-            cpu: 2
+            cpu: 1
             memory: 2Gi
           requests:
-            cpu: 2
+            cpu: 1
             memory: 2Gi
       terminationGracePeriodSeconds: 60
       volumes:
@@ -56,14 +56,8 @@ spec:
         name: bullseye-64bit-image
       - cloudInitNoCloud:
           secretRef:
-            name: bullseye-64bit-cloudinit-control-plane
+            name: bullseye-64bit-cloudinit-nodepool
           userData: |
-            # add any custom logic you want to occur on startup here.
-            curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=${INSTALL_K3S_CHANNEL} INSTALL_K3S_EXEC='--no-deploy traefik' sh -
-            # get the k3s token dynamically
-            K3S_TOKEN=$(cat /var/lib/rancher/k3s/server/node-token)
-            # get the current k3s server ip and store it as a url
-            K3S_URL=https://$(hostname -I | awk '{print $1}'):6443
-            # apply that token and url to the secret in build cluster on namespace kubevirt
-            kubectl --context build -n kubevirt patch secret bullseye-64bit-cloudinit-nodepool -p '{"data":{"K3S_TOKEN": "'$(echo -n $K3S_TOKEN | base64 -w 0)'", "K3S_URL": "'$(echo -n $K3S_URL | base64 -w 0)'"}}'
+            # join the worker nodes to the cluster
+            curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=${INSTALL_K3S_CHANNEL} K3S_URL=${K3S_URL} K3S_TOKEN=${K3S_TOKEN} sh -
         name: cloudinitdisk
