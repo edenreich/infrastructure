@@ -1,0 +1,59 @@
+apiVersion: kubevirt.io/v1alpha3
+kind: VirtualMachineInstanceReplicaSet
+metadata:
+  annotations:
+    vm.kubevirt.io/flavor: extra-small
+    vm.kubevirt.io/os: bullseye-64bit
+    vm.kubevirt.io/workload: server
+  labels:
+    kubevirt.io/size: extra-small
+    kubevirt.io/domain: raspberry-pi
+    kubevirt.io/vmReplicaSet: bullseye-64bit
+  name: bullseye-64bit
+spec:
+  replicas: 2
+  template:
+    metadata:
+      annotations:
+        vm.kubevirt.io/flavor: extra-small
+        vm.kubevirt.io/os: bullseye-64bit
+        vm.kubevirt.io/workload: server
+      labels:
+        kubevirt.io/size: extra-small
+        kubevirt.io/domain: raspberry-pi
+        kubevirt.io/vmReplicaSet: bullseye-64bit
+    spec:
+      domain:
+        devices:
+          disks:
+          - disk:
+              bus: virtio
+            name: bullseye-64bit-image
+          - disk:
+              bus: virtio
+            name: cloudinitdisk
+        cpu:
+          cores: 1
+          sockets: 1
+          threads: 1
+          dedicatedCpuPlacement: true
+        machine:
+          type: ""
+        resources:
+          limits:
+            cpu: 1
+            memory: 2Gi
+          requests:
+            cpu: 1
+            memory: 2Gi
+      terminationGracePeriodSeconds: 60
+      volumes:
+      - ephemeral:
+          persistentVolumeClaim:
+            claimName: bullseye-64bit-rom
+        name: bullseye-64bit-image
+      - cloudInitNoCloud:
+          userData: |
+            # add any custom logic you want to occur on startup here.
+            echo “cloud-init script execution"
+        name: cloudinitdisk
