@@ -1,23 +1,25 @@
+---
 apiVersion: kubevirt.io/v1alpha3
 kind: VirtualMachineInstanceReplicaSet
 metadata:
   annotations:
     vm.kubevirt.io/flavor: extra-small
     vm.kubevirt.io/os: bullseye-64bit
-    vm.kubevirt.io/workload: server
+    vm.kubevirt.io/workload: node
   labels:
     kubevirt.io/size: extra-small
     kubevirt.io/domain: raspberry-pi
     kubevirt.io/vmReplicaSet: bullseye-64bit
   name: bullseye-64bit
+  namespace: kubevirt
 spec:
-  replicas: 2
+  replicas: 3
   template:
     metadata:
       annotations:
         vm.kubevirt.io/flavor: extra-small
         vm.kubevirt.io/os: bullseye-64bit
-        vm.kubevirt.io/workload: server
+        vm.kubevirt.io/workload: node
       labels:
         kubevirt.io/size: extra-small
         kubevirt.io/domain: raspberry-pi
@@ -53,7 +55,9 @@ spec:
             claimName: bullseye-64bit-rom
         name: bullseye-64bit-image
       - cloudInitNoCloud:
+          secretRef:
+            name: bullseye-64bit-cloudinit-nodepool
           userData: |
             # add any custom logic you want to occur on startup here.
-            echo “cloud-init script execution"
+            curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=${INSTALL_K3S_CHANNEL} K3S_URL=${K3S_URL} K3S_TOKEN=${K3S_TOKEN} sh -
         name: cloudinitdisk
