@@ -1,0 +1,80 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: kubevirt-operator
+  namespace: argocd
+  labels:
+    name: kubevirt
+spec:
+  generators:
+  - list:
+      elements:
+      - cluster: staging
+        project: staging
+      # - cluster: production
+      #   project: production
+      # - cluster: gateway
+      #   project: gateway
+  template:
+    metadata:
+      name: 'kubevirt-{{project}}'
+      finalizers:
+      - resources-finalizer.argocd.argoproj.io
+      labels:
+        name: kubevirt
+        project: '{{project}}'
+    spec:
+      project: '{{project}}'
+      source:
+        repoURL: 'https://storage.googleapis.com/kubevirt-prow'
+        path: 'devel/nightly/release/kubevirt/kubevirt/20221029/kubevirt-operator-arm64.yaml'
+      destination:
+        name: '{{cluster}}'
+        namespace: kubevirt
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: kubevirt-crds
+  namespace: argocd
+  labels:
+    name: kubevirt
+spec:
+  generators:
+  - list:
+      elements:
+      - cluster: staging
+        project: staging
+      # - cluster: production
+      #   project: production
+      # - cluster: gateway
+      #   project: gateway
+  template:
+    metadata:
+      name: 'kubevirt-{{project}}'
+      finalizers:
+      - resources-finalizer.argocd.argoproj.io
+      labels:
+        name: kubevirt
+        project: '{{project}}'
+    spec:
+      project: '{{project}}'
+      source:
+        repoURL: 'https://storage.googleapis.com/kubevirt-prow'
+        path: 'devel/nightly/release/kubevirt/kubevirt/20221029/kubevirt-cr-arm64.yaml'
+      destination:
+        name: '{{cluster}}'
+        namespace: kubevirt
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true
