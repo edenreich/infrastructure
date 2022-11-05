@@ -9,11 +9,15 @@ all:
     gateway:
       hosts:
         gateway.local:
-    staging:
+    staging_server:
       hosts:
         k8s-staging-server.local:
+    staging_nodes:
+      hosts:
         k8s-staging-node[1:3].local:
-    production:
+    production_server:
       hosts:
         k8s-server.local:
+    production_nodes:
+      hosts:
         k8s-node[1:6].local:
