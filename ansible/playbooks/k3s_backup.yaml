@@ -1,0 +1,28 @@
+---
+- name: Backup k3s
+  gather_facts: false
+  hosts:
+    - k8s_server
+  vars:
+    date: "{{ lookup('pipe', 'date +%Y-%m-%d') }}"
+    env: staging
+  tasks:
+    - name: Create a backup of the k3s server files and data
+      become: true
+      community.general.archive:
+        path: /var/lib/rancher/k3s/*
+        dest: "/home/pi/{{ env }}-k3s-backup-{{ date }}.tar.gz"
+        format: gz
+        mode: 0644
+        owner: pi
+        group: pi
+    - name: Fetch the backup file
+      ansible.builtin.fetch:
+        src: "/home/pi/{{ env }}-k3s-backup-{{ date }}.tar.gz"
+        dest: "{{ playbook_dir }}/{{ env }}-k3s-backup-{{ date }}.tar.gz"
+        flat: true
+        mode: 0644
+    - name: Delete the backup file from the remote server
+      ansible.builtin.file:
+        path: /home/pi/{{ env }}-k3s-backup-{{ date }}.tar.gz
+        state: absent
