@@ -38,7 +38,7 @@ deploy-sealed-secrets-keys: kubectl
 			--namespace=sealed-secrets; \
 	done
 
-deploy-cloudflare-keys:
+deploy-cloudflare-keys: kubectl
 	@echo "===> Deploying Cloudflare TLS Certificates..."
 	@echo "====> Creating namespace main..." 
 	@kubectl create namespace main \
