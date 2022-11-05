@@ -1,0 +1,13 @@
+---
+- name: Maintain OS
+  gather_facts: false
+  hosts: all
+  tasks:
+    - name: Upgrade installed packages
+      become: true
+      apt:
+        upgrade: dist
+        update_cache: yes
+        autoremove: yes
+        autoclean: yes
+        clean: yes
