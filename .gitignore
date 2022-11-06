@@ -1,3 +1,5 @@
 *.crt
 *.key
 *.pem
+*.tar.gz
+*.gz

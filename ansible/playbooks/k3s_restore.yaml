@@ -1,0 +1,38 @@
+---
+- name: Restore the K3S cluster
+  gather_facts: false
+  hosts:
+    - k8s_server
+  vars:
+    backup_file: ./backup.tar.gz
+  tasks:
+    - name: Stop K3S server service
+      become: true
+      ansible.builtin.systemd:
+        name: k3s
+        state: stopped
+    # - name: Rename K3S directory
+    #   become: true
+    #   ansible.builtin.copy:
+    #     src: /var/lib/rancher/k3s
+    #     dest: /var/lib/rancher/k3s-{{ ansible_date_time.date }}
+    #     remote_src: true
+    #     force: true
+    #     mode: preserve
+    # - name: Copy backup to remote server home directory
+    #   ansible.builtin.copy:
+    #     src: "{{ backup_file }}"
+    #     dest: "/var/lib/rancher/k3s/k3s-backup.gz.tar"
+    #     mode: preserve
+    # - name: Untar the backup file
+    #   ansible.builtin.unarchive:
+    #     src: "/var/lib/rancher/k3s/k3s-backup.gz.tar"
+    #     dest: "/var/lib/rancher/k3s"
+    #     remote_src: true
+    #     mode: 0644
+    #     owner: root
+    # - name: Start K3S server service
+    #   become: true
+    #   ansible.builtin.systemd:
+    #     name: k3s
+    #     state: started
