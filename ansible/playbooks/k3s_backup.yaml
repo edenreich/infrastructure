@@ -16,7 +16,7 @@
         mode: 0644
         owner: pi
         group: pi
-    - name: Fetches the backup file
+    - name: Fetch the backup file
       ansible.builtin.fetch:
         src: "/home/pi/{{ env }}-k3s-backup-{{ date }}.tar.gz"
         dest: "{{ playbook_dir }}/{{ env }}-k3s-backup-{{ date }}.tar.gz"
