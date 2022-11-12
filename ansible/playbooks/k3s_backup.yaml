@@ -4,10 +4,10 @@
   hosts:
     - k8s_server
   vars:
-    date: "{{ lookup('pipe', 'date +%Y-%m-%d') }}"
+    date: "{{ lookup('pipe', 'date +%Y-%m-%d-%H-%M-%S') }}"
     env: staging
   tasks:
-    - name: Create a backup of the k3s server files and data
+    - name: Creates a backup of the k3s server files and data
       become: true
       community.general.archive:
         path: /var/lib/rancher/k3s/*
