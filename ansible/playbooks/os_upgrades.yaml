@@ -3,7 +3,7 @@
   gather_facts: false
   hosts: all
   tasks:
-    - name: Upgrades installed packages
+    - name: Upgrade installed packages
       become: true
       ansible.builtin.apt:
         upgrade: dist
