@@ -4,7 +4,7 @@
   hosts:
     - k8s_server
   vars:
-    date: "{{ lookup('pipe', 'date +%Y-%m-%d-%H-%M-%S') }}"
+    date: "{{ lookup('pipe', 'date +%Y-%m-%d') }}"
     env: staging
   tasks:
     - name: Creates a backup of the k3s server files and data
@@ -16,7 +16,7 @@
         mode: 0644
         owner: pi
         group: pi
-    - name: Fetch the backup file
+    - name: Fetches the backup file
       ansible.builtin.fetch:
         src: "/home/pi/{{ env }}-k3s-backup-{{ date }}.tar.gz"
         dest: "{{ playbook_dir }}/{{ env }}-k3s-backup-{{ date }}.tar.gz"

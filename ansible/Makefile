@@ -16,6 +16,7 @@ help:
 	@printf "Examples:\n"
 	@printf "  ENVIRONMENT=staging make os-upgrade\n"
 	@printf "  ENVIRONMENT=production make os-upgrade\n"
+	@printf "  ENVIRONMENT=staging make k3s-backup\n"
 	@printf "  ENVIRONMENT=staging BACKUP_FILE=./backup.tar.gz make k3s-restore\n"
 	@printf "\n"
 	@printf "Available commands:\n"
