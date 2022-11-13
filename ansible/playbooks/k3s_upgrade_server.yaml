@@ -1,0 +1,15 @@
+---
+- name: Upgrade K3S API server
+  gather_facts: false
+  hosts:
+    - k8s_server
+  vars:
+    env: staging
+    k3s_version: latest
+  tasks:
+    - name: Upgrade K3S API server
+      become: true
+      ansible.builtin.shell:
+        cmd: "curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL={{ k3s_version }} sh -"
+      tags:
+        - skip_ansible_lint
