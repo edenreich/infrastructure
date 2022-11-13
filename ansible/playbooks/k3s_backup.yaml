@@ -10,7 +10,7 @@
     - name: Create a backup of the k3s server files and data
       become: true
       community.general.archive:
-        path: /var/lib/rancher/*
+        path: /var/lib/rancher/k3s/server
         dest: "/home/pi/{{ env }}-k3s-backup-{{ date }}.tar.gz"
         format: gz
         mode: 0644
@@ -19,7 +19,7 @@
     - name: Fetch the backup file
       ansible.builtin.fetch:
         src: "/home/pi/{{ env }}-k3s-backup-{{ date }}.tar.gz"
-        dest: "{{ playbook_dir }}/{{ env }}-k3s-backup-{{ date }}.tar.gz"
+        dest: "../backups/{{ env }}-k3s-backup-{{ date }}.tar.gz"
         flat: true
         mode: 0644
     - name: Delete the backup file from the remote server
