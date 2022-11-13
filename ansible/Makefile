@@ -99,7 +99,7 @@ k3s-install-server: validate-environment ansible-playbook ## Installs the k3s se
 k3s-install-agents: validate-environment validate-k3s-server-url validate-k3s-token ansible-playbook ## Installs the k3s agent on all worker nodes
 	@if [ "${ENVIRONMENT}" = "all" ]; then printf "%s%b%s%b\n" "==> " ${COLOR_RED} "ENVIRONMENT=all Not implemented!" ${BG_COLOR_RESET}; exit 1; fi
 	@echo "==> Installing k3s agent on ${ENVIRONMENT}..."
-	@ansible-playbook --ask-become-pass -i inventories/${ENVIRONMENT}.yaml playbooks/k3s_install_agent.yaml --extra-vars="env=${ENVIRONMENT} k3s_server_url=${K3S_SERVER_URL} k3s_token=${K3S_TOKEN}"
+	@ansible-playbook --ask-become-pass -i inventories/${ENVIRONMENT}.yaml playbooks/k3s_install_agents.yaml --extra-vars="env=${ENVIRONMENT} k3s_server_url=${K3S_SERVER_URL} k3s_token=${K3S_TOKEN}"
 
 k3s-download-kubeconfig: validate-environment ansible-playbook kubectl ## Downloads the kubeconfig file from the k3s server
 	@if [ "${ENVIRONMENT}" = "all" ]; then printf "%s%b%s%b\n" "==> " ${COLOR_RED} "ENVIRONMENT=all Not implemented!" ${BG_COLOR_RESET}; exit 1; fi
