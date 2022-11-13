@@ -98,4 +98,4 @@ k3s-install-agents: validate-environment validate-k3s-server-url validate-k3s-to
 	@echo "==> Installing k3s agent on ${ENVIRONMENT}..."
 	@ansible-playbook --ask-become-pass -i inventories/${ENVIRONMENT}.yaml playbooks/k3s_install_agent.yaml --extra-vars="env=${ENVIRONMENT} k3s_server_url=${K3S_SERVER_URL} k3s_token=${K3S_TOKEN}"
 
-.PHONY: help default ansible ansible-playbook ping os-upgrade k3s-clean k3s-backup k3s-restore k3s-install-server k3s-install-agents
+.PHONY: help default validate-environment validate-backup-file validate-k3s-server-url validate-k3s-token ansible ansible-playbook ping os-upgrade k3s-clean k3s-backup k3s-restore k3s-install-server k3s-install-agents
