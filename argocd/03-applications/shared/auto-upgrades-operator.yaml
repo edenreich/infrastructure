@@ -1,0 +1,43 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: system-upgrade
+  namespace: argocd
+  labels:
+    name: system-upgrade
+spec:
+  generators:
+  - list:
+      elements:
+      - cluster: in-cluster
+        project: build
+      - cluster: staging
+        project: staging
+      - cluster: production
+        project: production
+      - cluster: gateway
+        project: gateway
+  template:
+    metadata:
+      name: 'system-upgrade-{{project}}'
+      finalizers:
+      - resources-finalizer.argocd.argoproj.io
+      labels:
+        name: system-upgrade
+        project: '{{project}}'
+    spec:
+      project: '{{project}}'
+      source:
+        repoURL: 'https://github.com/rancher/system-upgrade-controller.git'
+        targetRevision: HEAD
+        path: 'manifests/system-upgrade-controller.yaml'
+      destination:
+        name: '{{cluster}}'
+        namespace: system-upgrade
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true
