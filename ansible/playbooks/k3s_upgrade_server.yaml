@@ -4,8 +4,8 @@
   hosts:
     - k8s_server
   vars:
-    env: staging
-    k3s_version: latest
+    env: "staging"
+    k3s_version: "latest"
   tasks:
     - name: Upgrade K3S API server
       become: true
