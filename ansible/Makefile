@@ -106,9 +106,14 @@ k3s-upgrade-server: validate-environment ansible-playbook ## Upgrades the k3s se
 	@echo "==> Upgrading k3s API server on ${ENVIRONMENT}..."
 	@ansible-playbook --ask-become-pass -i inventories/${ENVIRONMENT}.yaml playbooks/k3s_upgrade_server.yaml --extra-vars="env=${ENVIRONMENT}"
 
+k3s-upgrade-agents: validate-environment ansible-playbook ## Upgrades the k3s agent on all worker nodes
+	@if [ "${ENVIRONMENT}" = "all" ]; then printf "%s%b%s%b\n" "==> " ${COLOR_RED} "ENVIRONMENT=all Not implemented!" ${BG_COLOR_RESET}; exit 1; fi
+	@echo "==> Rolling Upgrade for k3s agents on ${ENVIRONMENT}..."
+	@ansible-playbook --ask-become-pass -i inventories/${ENVIRONMENT}.yaml playbooks/k3s_upgrade_agents.yaml --extra-vars="env=${ENVIRONMENT}"
+
 k3s-download-kubeconfig: validate-environment ansible-playbook kubectl ## Downloads the kubeconfig file from the k3s server
 	@if [ "${ENVIRONMENT}" = "all" ]; then printf "%s%b%s%b\n" "==> " ${COLOR_RED} "ENVIRONMENT=all Not implemented!" ${BG_COLOR_RESET}; exit 1; fi
 	@echo "==> Downloading the kubeconfig file from the k3s server on ${ENVIRONMENT}..."
 	@ansible-playbook --ask-become-pass -i inventories/${ENVIRONMENT}.yaml playbooks/k3s_download_kubeconfig.yaml --extra-vars="env=${ENVIRONMENT}"
 
-.PHONY: help default validate-environment validate-backup-file validate-k3s-server-url validate-k3s-token ansible ansible-playbook kubectl ping os-upgrade k3s-clean k3s-backup k3s-restore k3s-install-server k3s-install-agents k3s-upgrade-server k3s-download-kubeconfig
+.PHONY: help default validate-environment validate-backup-file validate-k3s-server-url validate-k3s-token ansible ansible-playbook kubectl ping os-upgrade k3s-clean k3s-backup k3s-restore k3s-install-server k3s-install-agents k3s-download-kubeconfig
