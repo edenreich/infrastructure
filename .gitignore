@@ -3,3 +3,4 @@
 *.pem
 *.tar.gz
 *.gz
+**/backups

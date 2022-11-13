@@ -1,9 +1,7 @@
 ---
 - name: Cleanup K3S resources
   gather_facts: false
-  hosts:
-    - k8s_server
-    - k8s_nodes
+  hosts: all
   tasks:
     - name: Remove dangling container images
       become: true
