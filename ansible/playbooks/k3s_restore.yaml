@@ -4,35 +4,64 @@
   hosts:
     - k8s_server
   vars:
-    backup_file: ./backup.tar.gz
+    env: "staging"
+    date: "{{ lookup('pipe', 'date +%Y-%m-%d') }}"
+    backup_file: "backup.tar.gz"
   tasks:
+    - name: Copy backup to remote server home directory
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/{{ backup_file }}"
+        dest: "/home/pi/k3s-backup.tar.gz"
+        mode: preserve
+    - name: Move backup to Rancher directory
+      become: true
+      ansible.builtin.copy:
+        src: "/home/pi/k3s-backup.tar.gz"
+        dest: "/var/lib/rancher/k3s-backup.tar.gz"
+        remote_src: true
+        mode: preserve
     - name: Stop K3S server service
       become: true
       ansible.builtin.systemd:
         name: k3s
         state: stopped
-    # - name: Rename K3S directory
-    #   become: true
-    #   ansible.builtin.copy:
-    #     src: /var/lib/rancher/k3s
-    #     dest: /var/lib/rancher/k3s-{{ ansible_date_time.date }}
-    #     remote_src: true
-    #     force: true
-    #     mode: preserve
-    # - name: Copy backup to remote server home directory
-    #   ansible.builtin.copy:
-    #     src: "{{ backup_file }}"
-    #     dest: "/var/lib/rancher/k3s/k3s-backup.gz.tar"
-    #     mode: preserve
-    # - name: Untar the backup file
-    #   ansible.builtin.unarchive:
-    #     src: "/var/lib/rancher/k3s/k3s-backup.gz.tar"
-    #     dest: "/var/lib/rancher/k3s"
-    #     remote_src: true
-    #     mode: 0644
-    #     owner: root
-    # - name: Start K3S server service
-    #   become: true
-    #   ansible.builtin.systemd:
-    #     name: k3s
-    #     state: started
+    - name: Run k3s-killall.sh
+      become: true
+      ansible.builtin.command: /usr/local/bin/k3s-killall.sh
+      tags:
+        - skip_ansible_lint
+    - name: Rename K3S directory
+      become: true
+      ansible.builtin.copy:
+        src: "/var/lib/rancher/k3s"
+        dest: "/var/lib/rancher/k3s-tmp-{{ date }}"
+        remote_src: true
+        mode: preserve
+    - name: Remove K3S directory
+      become: true
+      ansible.builtin.file:
+        path: "/var/lib/rancher/k3s"
+        state: absent
+    - name: Untar the backup file
+      become: true
+      ansible.builtin.unarchive:
+        src: "/var/lib/rancher/k3s-backup.tar.gz"
+        dest: "/var/lib/rancher/"
+        remote_src: true
+        mode: 0644
+        owner: root
+    - name: Remove backup file
+      become: true
+      ansible.builtin.file:
+        path: "/var/lib/rancher/k3s-backup.tar.gz"
+        state: absent
+    - name: Remove temporary K3S directory
+      become: true
+      ansible.builtin.file:
+        path: "/var/lib/rancher/k3s-tmp-{{ date }}"
+        state: absent
+    - name: Start K3S server service
+      become: true
+      ansible.builtin.systemd:
+        name: k3s
+        state: started

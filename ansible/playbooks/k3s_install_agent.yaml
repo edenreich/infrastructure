@@ -1,0 +1,52 @@
+---
+- name: Install the K3S server
+  gather_facts: false
+  hosts:
+    - k8s_nodes
+  vars:
+    env: "staging"
+    k3s_version: "v1.25.3+k3s1"
+    k3s_server_url: ""
+    k3s_token: ""
+  tasks:
+    - name: K3S agent uninstall script exists
+      become: true
+      ansible.builtin.stat:
+        path: /usr/local/bin/k3s-agent-uninstall.sh
+      register: k3s_agent_uninstall_script
+    - name: K3S agent killall script exists
+      become: true
+      ansible.builtin.stat:
+        path: /usr/local/bin/k3s-killall.sh
+      register: k3s_killall_script
+    - name: Copy the K3S uninstall script
+      become: true
+      ansible.builtin.copy:
+        src: ../templates/uninstall-agent.sh.j2
+        dest: /usr/local/bin/k3s-agent-uninstall.sh
+        mode: 0755
+      when: not k3s_agent_uninstall_script.stat.exists
+    - name: Copy the K3S killall script
+      become: true
+      ansible.builtin.copy:
+        src: ../templates/killall.sh.j2
+        dest: /usr/local/bin/k3s-killall.sh
+        mode: 0755
+      when: not k3s_killall_script.stat.exists
+    - name: Uninstall K3S agent
+      become: true
+      ansible.builtin.shell: "/usr/local/bin/k3s-agent-uninstall.sh"
+      when: k3s_agent_uninstall_script.stat.exists
+      tags:
+        - skip_ansible_lint
+    - name: Install K3S agent
+      become: true
+      ansible.builtin.shell: "curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL='{{ k3s_version }}' K3S_URL='{{ k3s_server_url }}' K3S_TOKEN='{{ k3s_token }}' sh -"
+      tags:
+        - skip_ansible_lint
+    - name: Ensure K3S agent is running
+      become: true
+      ansible.builtin.service:
+        name: k3s-agent
+        state: started
+        enabled: true
