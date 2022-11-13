@@ -49,6 +49,9 @@ ansible:
 ansible-playbook:
 	@which ansible-playbook > /dev/null || (printf "%s%b%s%b\n" "==> " ${COLOR_RED} "ansible-playbook is not installed!" ${BG_COLOR_RESET} && exit 1)
 
+kubectl:
+	@which kubectl > /dev/null || (printf "%s%b%s%b\n" "==> " ${COLOR_RED} "kubectl is not installed!" ${BG_COLOR_RESET} && exit 1)
+
 ping: validate-environment ansible ## Pings all hosts
 	@if [ "${ENVIRONMENT}" = "all" ]; then \
 		for env in `ls inventories | sed -e "s/.yaml//" | xargs`; do \
@@ -98,4 +101,9 @@ k3s-install-agents: validate-environment validate-k3s-server-url validate-k3s-to
 	@echo "==> Installing k3s agent on ${ENVIRONMENT}..."
 	@ansible-playbook --ask-become-pass -i inventories/${ENVIRONMENT}.yaml playbooks/k3s_install_agent.yaml --extra-vars="env=${ENVIRONMENT} k3s_server_url=${K3S_SERVER_URL} k3s_token=${K3S_TOKEN}"
 
-.PHONY: help default validate-environment validate-backup-file validate-k3s-server-url validate-k3s-token ansible ansible-playbook ping os-upgrade k3s-clean k3s-backup k3s-restore k3s-install-server k3s-install-agents
+k3s-download-kubeconfig: validate-environment ansible-playbook kubectl ## Downloads the kubeconfig file from the k3s server
+	@if [ "${ENVIRONMENT}" = "all" ]; then printf "%s%b%s%b\n" "==> " ${COLOR_RED} "ENVIRONMENT=all Not implemented!" ${BG_COLOR_RESET}; exit 1; fi
+	@echo "==> Downloading the kubeconfig file from the k3s server on ${ENVIRONMENT}..."
+	@ansible-playbook --ask-become-pass -i inventories/${ENVIRONMENT}.yaml playbooks/k3s_download_kubeconfig.yaml --extra-vars="env=${ENVIRONMENT}"
+
+.PHONY: help default validate-environment validate-backup-file validate-k3s-server-url validate-k3s-token ansible ansible-playbook kubectl ping os-upgrade k3s-clean k3s-backup k3s-restore k3s-install-server k3s-install-agents k3s-download-kubeconfig
