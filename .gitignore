@@ -4,3 +4,6 @@
 *.tar.gz
 *.gz
 **/backups
+
+# IDE's
+.vscode
