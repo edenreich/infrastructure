@@ -31,7 +31,7 @@ spec:
       source:
         repoURL: "https://github.com/rancher/system-upgrade-controller.git"
         targetRevision: HEAD
-        path: "manifests/system-upgrade-controller.yaml"
+        path: "manifests"
       destination:
         name: "{{cluster}}"
         namespace: system-upgrade
