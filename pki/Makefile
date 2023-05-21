@@ -1,7 +1,8 @@
 
+SEALED_SECRETS_CONTEXTS ?= build staging production gateway
+
 SEALED_SECRETS_TLS_KEY ?= ./sealedsecrets/tls.key
 SEALED_SECRETS_TLS_CERT ?= ./sealedsecrets/tls.crt
-SEALED_SECRETS_CONTEXTS ?= build staging production gateway
 
 CLOUDFLARE_TLS_KEY ?= ./cloudflare/eden-reich.com-tls.key
 CLOUDFLARE_TLS_CERT ?= ./cloudflare/eden-reich.com-tls.pem
@@ -33,6 +34,9 @@ deploy-sealed-secrets-keys: kubectl
 			--key=${SEALED_SECRETS_TLS_KEY} \
 			--dry-run=client --output yaml | kubectl --context=$$context apply -f -; \
 		echo "===> Activating TLS secret for given private and public keys..."; \
+		kubectl label secret -l sealedsecrets.bitnami.com/sealed-secrets-key=active sealedsecrets.bitnami.com/sealed-secrets-key- \
+			--context=$$context \
+			--namespace=sealed-secrets; \
 		kubectl label secret sealed-secrets sealedsecrets.bitnami.com/sealed-secrets-key=active \
 			--context=$$context \
 			--namespace=sealed-secrets; \
