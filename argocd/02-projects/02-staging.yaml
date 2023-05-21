@@ -7,12 +7,12 @@ metadata:
   labels:
     name: staging
 spec:
-  description: 'Staging project'
+  description: "Staging project"
   clusterResourceWhitelist:
-  - group: '*'
-    kind: '*'
+    - group: "*"
+      kind: "*"
   sourceRepos:
-  - '*'
+    - "*"
   destinations:
-  - name: 'staging'
-    namespace: '*'
+    - name: "staging"
+      namespace: "*"

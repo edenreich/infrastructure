@@ -4,13 +4,13 @@ kind: Endpoints
 metadata:
   name: production-cluster
   namespace: main
-subsets: 
-- addresses:
-  - ip: "192.168.1.20"
-  ports:
-  - port: 80
-    protocol: TCP
-    name: http
+subsets:
+  - addresses:
+      - ip: "192.168.1.20"
+    ports:
+      - port: 80
+        protocol: TCP
+        name: http
 ---
 apiVersion: v1
 kind: Service
@@ -21,6 +21,6 @@ spec:
   type: ClusterIP
   clusterIP: None
   ports:
-  - name: http
-    port: 8080
-    targetPort: 80
+    - name: http
+      port: 8080
+      targetPort: 80

@@ -7,12 +7,12 @@ metadata:
   labels:
     name: production
 spec:
-  description: 'Production project'
+  description: "Production project"
   clusterResourceWhitelist:
-  - group: '*'
-    kind: '*'
+    - group: "*"
+      kind: "*"
   sourceRepos:
-  - '*'
+    - "*"
   destinations:
-  - name: 'production'
-    namespace: '*'
+    - name: "production"
+      namespace: "*"

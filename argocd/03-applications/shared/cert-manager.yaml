@@ -8,40 +8,40 @@ metadata:
     name: cert-manager
 spec:
   generators:
-  - list:
-      elements:
-      - cluster: in-cluster
-        project: build
-      - cluster: staging
-        project: staging
-      - cluster: production
-        project: production
-      - cluster: gateway
-        project: gateway
+    - list:
+        elements:
+          - cluster: in-cluster
+            project: build
+          - cluster: staging
+            project: staging
+          - cluster: production
+            project: production
+          - cluster: gateway
+            project: gateway
   template:
     metadata:
-      name: 'cert-manager-{{project}}'
+      name: "cert-manager-{{project}}"
       finalizers:
-      - resources-finalizer.argocd.argoproj.io
+        - resources-finalizer.argocd.argoproj.io
       labels:
         name: cert-manager
-        project: '{{project}}'
+        project: "{{project}}"
     spec:
-      project: '{{project}}'
+      project: "{{project}}"
       source:
         chart: cert-manager
-        repoURL: 'https://charts.jetstack.io'
+        repoURL: "https://charts.jetstack.io"
         targetRevision: v1.9.1
         helm:
           releaseName: cert-manager
           values: |
             installCRDs: true
       destination:
-        name: '{{cluster}}'
+        name: "{{cluster}}"
         namespace: cert-manager
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
         syncOptions:
-        - CreateNamespace=true
+          - CreateNamespace=true

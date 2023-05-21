@@ -7,12 +7,12 @@ metadata:
   labels:
     name: build
 spec:
-  description: 'Build project'
+  description: "Build project"
   clusterResourceWhitelist:
-  - group: '*'
-    kind: '*'
+    - group: "*"
+      kind: "*"
   sourceRepos:
-  - '*'
+    - "*"
   destinations:
-  - name: 'in-cluster'
-    namespace: '*'
+    - name: "in-cluster"
+      namespace: "*"

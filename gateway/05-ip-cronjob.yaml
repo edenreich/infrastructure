@@ -4,14 +4,14 @@ metadata:
   namespace: main
   name: ingress-annotater
 rules:
-- apiGroups:
-  - extensions
-  - networking.k8s.io
-  resources:
-  - ingresses
-  verbs:
-  - get
-  - patch
+  - apiGroups:
+      - extensions
+      - networking.k8s.io
+    resources:
+      - ingresses
+    verbs:
+      - get
+      - patch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -19,9 +19,9 @@ metadata:
   name: ingress-annotater
   namespace: main
 subjects:
-- kind: ServiceAccount
-  name: ip-cronjob
-  namespace: main
+  - kind: ServiceAccount
+    name: ip-cronjob
+    namespace: main
 roleRef:
   kind: Role
   name: ingress-annotater
@@ -52,22 +52,22 @@ spec:
         spec:
           serviceAccountName: ip-cronjob
           containers:
-          - name: ip
-            image: portainer/kubectl-shell:latest-v1.21.1-arm64
-            command:
-            - /bin/sh
-            args:
-            - -c
-            - |
-              CURRENT_CONFIGURED_IP=$(kubectl get ingress main --output jsonpath='{.metadata.annotations.external-dns\.alpha\.kubernetes\.io/target}' --namespace=main);
-              CURRENT_IP=$(curl --silent ifconfig.me);
-              if [ "$CURRENT_CONFIGURED_IP" != "$CURRENT_IP" ]; then
-                echo "IP has changed, updating ingress...";
-                kubectl patch ingress main \
-                  --type=merge \
-                  --namespace=main \
-                  --patch '{"metadata":{"annotations":{"external-dns.alpha.kubernetes.io/target":"'$CURRENT_IP'"}}}';
-              else
-                echo "Current configured IP $CURRENT_CONFIGURED_IP has not changed, it's still the same as $CURRENT_IP, no action required.";
-              fi;
+            - name: ip
+              image: portainer/kubectl-shell:latest-v1.21.1-arm64
+              command:
+                - /bin/sh
+              args:
+                - -c
+                - |
+                  CURRENT_CONFIGURED_IP=$(kubectl get ingress main --output jsonpath='{.metadata.annotations.external-dns\.alpha\.kubernetes\.io/target}' --namespace=main);
+                  CURRENT_IP=$(curl --silent ifconfig.me);
+                  if [ "$CURRENT_CONFIGURED_IP" != "$CURRENT_IP" ]; then
+                    echo "IP has changed, updating ingress...";
+                    kubectl patch ingress main \
+                      --type=merge \
+                      --namespace=main \
+                      --patch '{"metadata":{"annotations":{"external-dns.alpha.kubernetes.io/target":"'$CURRENT_IP'"}}}';
+                  else
+                    echo "Current configured IP $CURRENT_CONFIGURED_IP has not changed, it's still the same as $CURRENT_IP, no action required.";
+                  fi;
           restartPolicy: OnFailure

@@ -7,12 +7,12 @@ metadata:
   labels:
     name: gateway
 spec:
-  description: 'Gateway project'
+  description: "Gateway project"
   clusterResourceWhitelist:
-  - group: '*'
-    kind: '*'
+    - group: "*"
+      kind: "*"
   sourceRepos:
-  - '*'
+    - "*"
   destinations:
-  - name: 'gateway'
-    namespace: '*'
+    - name: "gateway"
+      namespace: "*"

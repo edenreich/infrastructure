@@ -5,15 +5,15 @@ metadata:
   name: github-actions-runner-build
   namespace: argocd
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io
   labels:
     name: github-actions-runner
     project: build
 spec:
   project: build
   source:
-    repoURL: 'https://github.com/actions-runner-controller/actions-runner-controller.git'
-    path: 'charts/actions-runner-controller'
+    repoURL: "https://github.com/actions-runner-controller/actions-runner-controller.git"
+    path: "charts/actions-runner-controller"
     targetRevision: v0.24.1
   destination:
     name: in-cluster
@@ -23,5 +23,5 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-    - CreateNamespace=true
-    - Replace=true
+      - CreateNamespace=true
+      - Replace=true

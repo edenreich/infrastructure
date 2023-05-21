@@ -8,36 +8,36 @@ metadata:
     name: nginx-ingress
 spec:
   generators:
-  - list:
-      elements:
-      - cluster: staging
-        project: staging
-      - cluster: production
-        project: production
-      - cluster: gateway
-        project: gateway
+    - list:
+        elements:
+          - cluster: staging
+            project: staging
+          - cluster: production
+            project: production
+          - cluster: gateway
+            project: gateway
   template:
     metadata:
-      name: 'nginx-ingress-{{project}}'
+      name: "nginx-ingress-{{project}}"
       finalizers:
-      - resources-finalizer.argocd.argoproj.io
+        - resources-finalizer.argocd.argoproj.io
       labels:
         name: nginx-ingress
-        project: '{{project}}'
+        project: "{{project}}"
     spec:
-      project: '{{project}}'
+      project: "{{project}}"
       source:
         chart: nginx-ingress
-        repoURL: 'https://helm.nginx.com/stable'
+        repoURL: "https://helm.nginx.com/stable"
         targetRevision: 0.13.2
         helm:
           releaseName: nginx-ingress
       destination:
-        name: '{{cluster}}'
+        name: "{{cluster}}"
         namespace: nginx-ingress
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
         syncOptions:
-        - CreateNamespace=true
+          - CreateNamespace=true

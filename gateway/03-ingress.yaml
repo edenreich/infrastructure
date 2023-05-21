@@ -16,28 +16,28 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: eden-reich.com
-    http:
-      paths:
-      - pathType: Prefix
-        path: '/'
-        backend:
-          service:
-            name: production-cluster
-            port: 
-              number: 8080
-  - host: staging.eden-reich.com
-    http:
-      paths:
-      - pathType: Prefix
-        path: '/'
-        backend:
-          service:
-            name: staging-cluster
-            port: 
-              number: 8080
+    - host: eden-reich.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: production-cluster
+                port:
+                  number: 8080
+    - host: staging.eden-reich.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: staging-cluster
+                port:
+                  number: 8080
   tls:
-  - hosts:
-    - eden-reich.com
-    - staging.eden-reich.com
-    secretName: eden-reich.com-tls
+    - hosts:
+        - eden-reich.com
+        - staging.eden-reich.com
+      secretName: eden-reich.com-tls

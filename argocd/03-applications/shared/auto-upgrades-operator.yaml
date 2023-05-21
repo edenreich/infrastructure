@@ -8,36 +8,36 @@ metadata:
     name: system-upgrade
 spec:
   generators:
-  - list:
-      elements:
-      - cluster: in-cluster
-        project: build
-      - cluster: staging
-        project: staging
-      - cluster: production
-        project: production
-      - cluster: gateway
-        project: gateway
+    - list:
+        elements:
+          - cluster: in-cluster
+            project: build
+          - cluster: staging
+            project: staging
+          - cluster: production
+            project: production
+          - cluster: gateway
+            project: gateway
   template:
     metadata:
-      name: 'system-upgrade-{{project}}'
+      name: "system-upgrade-{{project}}"
       finalizers:
-      - resources-finalizer.argocd.argoproj.io
+        - resources-finalizer.argocd.argoproj.io
       labels:
         name: system-upgrade
-        project: '{{project}}'
+        project: "{{project}}"
     spec:
-      project: '{{project}}'
+      project: "{{project}}"
       source:
-        repoURL: 'https://github.com/rancher/system-upgrade-controller.git'
+        repoURL: "https://github.com/rancher/system-upgrade-controller.git"
         targetRevision: HEAD
-        path: 'manifests/system-upgrade-controller.yaml'
+        path: "manifests/system-upgrade-controller.yaml"
       destination:
-        name: '{{cluster}}'
+        name: "{{cluster}}"
         namespace: system-upgrade
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
         syncOptions:
-        - CreateNamespace=true
+          - CreateNamespace=true
