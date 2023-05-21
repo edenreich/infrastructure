@@ -7,9 +7,9 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
   labels:
     name: gateway
-    project: gateway
+    project: infrastructure
 spec:
-  project: gateway
+  project: infrastructure
   source:
     repoURL: "https://github.com/edenreich/infrastructure"
     targetRevision: master

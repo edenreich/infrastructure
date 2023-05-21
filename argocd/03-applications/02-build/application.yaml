@@ -7,7 +7,7 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
   labels:
     name: build
-    project: build
+    project: infrastructure
 spec:
   project: infrastructure
   source:
