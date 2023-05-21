@@ -3,9 +3,10 @@
 ### Install
 
 ```sh
-kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-kubectl port-forward svc/argocd-server -n argocd 8080:443
+kubectl config use-context build
+helm repo update
+helm upgrade --install argocd argo/argo-cd --namespace argocd --create-namespace --wait
+kubectl -n argocd port-forward svc/argocd-server 8080:443
 ```
 
 ### Fetching initial password

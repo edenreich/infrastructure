@@ -1,0 +1,23 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gateway
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: gateway
+    project: gateway
+spec:
+  project: gateway
+  source:
+    repoURL: "https://github.com/edenreich/infrastructure"
+    targetRevision: master
+    path: argocd/01-clusters/gateway
+  destination:
+    name: in-cluster
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

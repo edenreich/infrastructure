@@ -1,0 +1,23 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: build
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: build
+    project: build
+spec:
+  project: infrastructure
+  source:
+    repoURL: "https://github.com/edenreich/infrastructure"
+    targetRevision: master
+    path: argocd/01-clusters/build
+  destination:
+    name: in-cluster
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

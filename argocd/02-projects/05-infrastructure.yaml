@@ -1,0 +1,24 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: infrastructure
+  namespace: argocd
+  labels:
+    name: infrastructure
+spec:
+  description: "Infrastructure project"
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  sourceRepos:
+    - "*"
+  destinations:
+    - name: "in-cluster"
+      namespace: "*"
+    - name: "gateway"
+      namespace: "*"
+    - name: "staging"
+      namespace: "*"
+    - name: "production"
+      namespace: "*"

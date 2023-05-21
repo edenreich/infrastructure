@@ -4,6 +4,7 @@
 - staging
 - production
 - gateway
+- infrastructure
 
 Each project reflects an environment.
 
