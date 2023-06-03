@@ -35,10 +35,10 @@ metadata:
 spec:
   scaleTargetRef:
     name: blog-runner
-  minReplicas: 1
+  minReplicas: 0
   maxReplicas: 4
   scaleUpTriggers:
     - githubEvent:
         workflowJob: {}
       amount: 1
-      duration: "5m"
+      duration: "1m"
