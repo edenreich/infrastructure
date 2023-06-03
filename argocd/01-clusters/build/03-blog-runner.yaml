@@ -37,8 +37,7 @@ spec:
     name: blog-runner
   minReplicas: 1
   maxReplicas: 4
-  scaleUpTriggers:
-    - githubEvent:
-        workflowJob: {}
-      amount: 1
-      duration: "1m"
+  metrics:
+    - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
+      repositoryNames:
+        - edenreich/blog-new
