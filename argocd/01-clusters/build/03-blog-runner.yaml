@@ -35,7 +35,7 @@ metadata:
 spec:
   scaleTargetRef:
     name: blog-runner
-  minReplicas: 0
+  minReplicas: 1
   maxReplicas: 4
   scaleUpTriggers:
     - githubEvent:
