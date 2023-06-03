@@ -12,7 +12,6 @@ metadata:
     nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
     nginx.ingress.kubernetes.io/enable-real-ip: "true"
     external-dns.alpha.kubernetes.io/hostname: "eden-reich.com"
-    external-dns.alpha.kubernetes.io/target: "1.1.1.1"
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
 spec:
   ingressClassName: nginx
@@ -45,7 +44,6 @@ metadata:
     nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
     nginx.ingress.kubernetes.io/enable-real-ip: "true"
     external-dns.alpha.kubernetes.io/hostname: "staging.eden-reich.com"
-    external-dns.alpha.kubernetes.io/target: "1.1.1.1"
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
 spec:
   ingressClassName: nginx
