@@ -13,7 +13,7 @@ spec:
   project: build
   source:
     repoURL: "https://github.com/actions-runner-controller/actions-runner-controller.git"
-    path: "charts/actions-runner-controller"
+    path: charts/actions-runner-controller
     targetRevision: v0.24.1
   destination:
     name: in-cluster
