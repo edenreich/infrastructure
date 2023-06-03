@@ -11,7 +11,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-proxy-protocol: "true"
     nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
     nginx.ingress.kubernetes.io/enable-real-ip: "true"
-    external-dns.alpha.kubernetes.io/hostname: "test.eden-reich.com"
+    external-dns.alpha.kubernetes.io/hostname: "eden-reich.com"
     external-dns.alpha.kubernetes.io/target: "1.1.1.1"
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
 spec:
@@ -24,7 +24,7 @@ spec:
             path: "/"
             backend:
               service:
-                name: staging-cluster
+                name: production-cluster
                 port:
                   number: 8080
   tls:
@@ -45,12 +45,12 @@ metadata:
     nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
     nginx.ingress.kubernetes.io/enable-real-ip: "true"
     external-dns.alpha.kubernetes.io/hostname: "*.eden-reich.com"
-    external-dns.alpha.kubernetes.io/target: "test.eden-reich.com"
+    external-dns.alpha.kubernetes.io/target: "eden-reich.com"
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
 spec:
   ingressClassName: nginx
   rules:
-    - host: staging.eden-reich.com
+    - host: "*.eden-reich.com"
       http:
         paths:
           - pathType: Prefix
@@ -62,5 +62,5 @@ spec:
                   number: 8080
   tls:
     - hosts:
-        - staging.eden-reich.com
+        - "*.eden-reich.com"
       secretName: eden-reich.com-tls
