@@ -19,18 +19,6 @@ spec:
         requests:
           cpu: 500m
           memory: 512Mi
-      volumeMounts:
-      - mountPath: /home/runner/.docker/config.json
-        name: ghcr
-        subPath: .dockerconfigjson
-        readOnly: true
-      volumes:
-      - name: ghcr
-        secret:
-          secretName: ghcr
-          items:
-          - key: .dockerconfigjson
-            path: .dockerconfigjson
       ephemeral: true
 ---
 apiVersion: actions.summerwind.dev/v1alpha1
