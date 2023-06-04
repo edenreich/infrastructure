@@ -17,27 +17,6 @@ spec:
     targetRevision: v0.27.4
     helm:
       releaseName: github-actions-runner
-      values: |
-        serviceAccount:
-          name: github-actions-runner
-
-        image:
-          actionsRunnerImagePullSecrets:
-            - ghcr
-
-        podDisruptionBudget:
-          enabled: true
-          minAvailable: 1
-
-        defaultScaleDownDelay: 5m
-
-        securityContext:
-          runAsUser: 1000
-          runAsGroup: 1000
-          runAsNonRoot: true
-          capabilities:
-            drop:
-              - ALL
   destination:
     name: in-cluster
     namespace: actions-runner-system
