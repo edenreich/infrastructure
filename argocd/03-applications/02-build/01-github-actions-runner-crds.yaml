@@ -4,8 +4,6 @@ kind: Application
 metadata:
   name: github-actions-runner-crds
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "3"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
@@ -19,11 +17,6 @@ spec:
     targetRevision: v0.27.4
   destination:
     name: in-cluster
-    namespace: actions-runner-system
   syncPolicy:
     automated:
       prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - Replace=true

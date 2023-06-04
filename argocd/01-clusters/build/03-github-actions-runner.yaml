@@ -4,8 +4,6 @@ kind: Application
 metadata:
   name: github-actions-runner
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "4"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
@@ -19,25 +17,22 @@ spec:
     targetRevision: v0.27.4
     helm:
       releaseName: github-actions-runner
-      parameters:
-        - name: serviceAccount
-          value: github-actions-runner
-        - name: image.actionsRunnerImagePullSecrets[0]
-          value: ghcr
-        - name: imagePullSecrets[0]
-          value: ghcr
-        - name: defaultScaleDownDelay
-          value: 5m
-        - name: securityContext.runAsUser
-          value: "1000"
-        - name: securityContext.runAsGroup
-          value: "1000"
-        - name: securityContext.fsGroup
-          value: "1000"
-        - name: securityContext.runAsNonRoot
-          value: "true"
-        - name: securityContext.capabilities.drop[0]
-          value: ALL
+      values: |
+        serviceAccount: github-actions-runner
+        image:
+          actionsRunnerImagePullSecrets:
+            - ghcr
+        imagePullSecrets:
+          - ghcr
+        defaultScaleDownDelay: 5m
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          fsGroup: 1000
+          runAsNonRoot: true
+          capabilities:
+            drop:
+              - ALL
   destination:
     name: in-cluster
     namespace: actions-runner-system

@@ -4,8 +4,6 @@ kind: ServiceAccount
 metadata:
   name: blog-runner
   namespace: actions-runner-system
-  annotations:
-    argocd.argoproj.io/sync-wave: "5"
 imagePullSecrets:
   - name: ghcr
 ---
@@ -14,8 +12,6 @@ kind: RunnerDeployment
 metadata:
   name: blog-runner
   namespace: actions-runner-system
-  annotations:
-    argocd.argoproj.io/sync-wave: "6"
 spec:
   template:
     spec:
@@ -38,8 +34,6 @@ kind: HorizontalRunnerAutoscaler
 metadata:
   name: blog-runner-autoscaler
   namespace: actions-runner-system
-  annotations:
-    argocd.argoproj.io/sync-wave: "7"
 spec:
   scaleTargetRef:
     name: blog-runner
