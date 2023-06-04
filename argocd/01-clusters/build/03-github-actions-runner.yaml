@@ -19,14 +19,11 @@ spec:
       releaseName: github-actions-runner
       values: |
         serviceAccount:
-          name: github-actions-runner
+          create: false
 
         image:
           actionsRunnerImagePullSecrets:
             - ghcr
-
-        imagePullSecrets:
-          - ghcr
 
         defaultScaleDownDelay: 5m
 
