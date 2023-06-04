@@ -4,6 +4,8 @@ kind: ServiceAccount
 metadata:
   name: blog-runner
   namespace: actions-runner-system
+imagePullSecrets:
+  - name: ghcr
 ---
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: RunnerDeployment
