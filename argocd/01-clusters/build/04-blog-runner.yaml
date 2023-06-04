@@ -20,4 +20,3 @@ spec:
         requests:
           cpu: 1000m
           memory: 1050Mi
-      ephemeral: true
