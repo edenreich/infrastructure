@@ -29,6 +29,7 @@ spec:
                   number: 8080
   tls:
     - hosts:
+        - "*.eden-reich.com"
         - www.eden-reich.com
         - eden-reich.com
       secretName: eden-reich.com-tls
