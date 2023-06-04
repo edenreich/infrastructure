@@ -61,7 +61,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: eden-reich.com
+    - host: "*.eden-reich.com"
       http:
         paths:
           - pathType: Prefix
@@ -74,4 +74,5 @@ spec:
   tls:
     - hosts:
         - eden-reich.com
+        - '*.eden-reich.com'
       secretName: eden-reich.com-tls
