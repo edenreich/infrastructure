@@ -19,7 +19,9 @@ spec:
     helm:
       parameters:
         - name: image.tag
-          value: a40226a
+          value: e00c50e
+        - name: ingress.host
+          value: https://preview-app-1.eden-reich.com
   destination:
     namespace: preview-environment-1
     name: staging
