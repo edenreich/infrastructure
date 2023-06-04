@@ -19,7 +19,7 @@ spec:
     helm:
       parameters:
         - name: image.tag
-          value: 88f2ec9
+          value: 9339078
         - name: ingress.host
           value: https://preview-app-1.eden-reich.com
   destination:
