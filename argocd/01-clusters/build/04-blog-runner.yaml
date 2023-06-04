@@ -21,18 +21,3 @@ spec:
           cpu: 1000m
           memory: 1050Mi
       ephemeral: true
-# ---
-# apiVersion: actions.summerwind.dev/v1alpha1
-# kind: HorizontalRunnerAutoscaler
-# metadata:
-#   name: blog-runner-autoscaler
-#   namespace: actions-runner-system
-# spec:
-#   scaleTargetRef:
-#     name: blog-runner
-#   minReplicas: 1
-#   maxReplicas: 4
-#   metrics:
-#     - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
-#       repositoryNames:
-#         - edenreich/blog-new
