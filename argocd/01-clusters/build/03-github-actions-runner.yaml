@@ -25,6 +25,10 @@ spec:
           actionsRunnerImagePullSecrets:
             - ghcr
 
+        podDisruptionBudget:
+          enabled: true
+          minAvailable: 1
+
         defaultScaleDownDelay: 5m
 
         securityContext:
