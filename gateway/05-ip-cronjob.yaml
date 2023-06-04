@@ -64,6 +64,7 @@ spec:
                   if [ "$CURRENT_CONFIGURED_IP" != "$CURRENT_IP" ]; then
                     echo "IP has changed, updating ingress...";
                     kubectl --namespace=main annotate ingress production external-dns.alpha.kubernetes.io/target=$CURRENT_IP --overwrite
+                    kubectl --namespace=main annotate ingress staging external-dns.alpha.kubernetes.io/target=$CURRENT_IP --overwrite
                   else
                     echo "Current configured IP $CURRENT_CONFIGURED_IP has not changed, it's still the same as $CURRENT_IP, no action required.";
                   fi;
