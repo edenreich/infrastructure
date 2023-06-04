@@ -5,7 +5,6 @@ metadata:
   name: github-actions-runner
   namespace: argocd
   annotations:
-    argocd.argoproj.io/hook: Sync
     argocd.argoproj.io/sync-wave: "4"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
