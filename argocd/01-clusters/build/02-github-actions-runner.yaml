@@ -14,7 +14,7 @@ spec:
   source:
     repoURL: "https://github.com/actions-runner-controller/actions-runner-controller.git"
     path: charts/actions-runner-controller
-    targetRevision: v0.24.1
+    targetRevision: v0.27.4
   destination:
     name: in-cluster
     namespace: actions-runner-system
