@@ -7,10 +7,11 @@ metadata:
   labels:
     name: production
   annotations:
-    # nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
-    # nginx.ingress.kubernetes.io/use-proxy-protocol: "true"
-    # nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
-    # nginx.ingress.kubernetes.io/enable-real-ip: "true"
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+    nginx.ingress.kubernetes.io/use-proxy-protocol: "true"
+    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
+    nginx.ingress.kubernetes.io/enable-real-ip: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
     external-dns.alpha.kubernetes.io/hostname: "eden-reich.com,www.eden-reich.com"
     external-dns.alpha.kubernetes.io/target: "1.1.1.1"
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
@@ -51,12 +52,12 @@ metadata:
   labels:
     name: staging
   annotations:
-    # nginx.ingress.kubernetes.io/use-proxy-protocol: "true"
-    # nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
-    # nginx.ingress.kubernetes.io/enable-real-ip: "true"
+    nginx.ingress.kubernetes.io/use-proxy-protocol: "true"
+    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
+    nginx.ingress.kubernetes.io/enable-real-ip: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
     external-dns.alpha.kubernetes.io/hostname: "*.eden-reich.com"
     external-dns.alpha.kubernetes.io/target: "1.1.1.1"
-    # external-dns.alpha.kubernetes.io/target: "eden-reich.com"
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
 spec:
   ingressClassName: nginx
