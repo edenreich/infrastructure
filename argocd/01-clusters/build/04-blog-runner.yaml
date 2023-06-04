@@ -7,6 +7,7 @@ metadata:
 spec:
   template:
     spec:
+      replicas: 1
       serviceAccountName: github-actions-runner
       repository: edenreich/blog-new
       labels:
@@ -14,24 +15,24 @@ spec:
         - k8s
       resources:
         limits:
-          cpu: 800m
-          memory: 500Mi
+          cpu: 1200m
+          memory: 800Mi
         requests:
-          cpu: 300m
-          memory: 250Mi
+          cpu: 600m
+          memory: 450Mi
       ephemeral: true
----
-apiVersion: actions.summerwind.dev/v1alpha1
-kind: HorizontalRunnerAutoscaler
-metadata:
-  name: blog-runner-autoscaler
-  namespace: actions-runner-system
-spec:
-  scaleTargetRef:
-    name: blog-runner
-  minReplicas: 1
-  maxReplicas: 4
-  metrics:
-    - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
-      repositoryNames:
-        - edenreich/blog-new
+# ---
+# apiVersion: actions.summerwind.dev/v1alpha1
+# kind: HorizontalRunnerAutoscaler
+# metadata:
+#   name: blog-runner-autoscaler
+#   namespace: actions-runner-system
+# spec:
+#   scaleTargetRef:
+#     name: blog-runner
+#   minReplicas: 1
+#   maxReplicas: 4
+#   metrics:
+#     - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
+#       repositoryNames:
+#         - edenreich/blog-new
