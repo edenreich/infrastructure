@@ -21,10 +21,6 @@ spec:
         serviceAccount:
           name: github-actions-runner
 
-        image:
-          actionsRunnerImagePullSecrets:
-            - ghcr
-
         imagePullSecrets:
           - ghcr
 
