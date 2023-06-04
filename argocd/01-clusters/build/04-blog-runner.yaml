@@ -15,10 +15,10 @@ spec:
       resources:
         limits:
           cpu: 800m
-          memory: 1Gi
+          memory: 500Mi
         requests:
-          cpu: 500m
-          memory: 512Mi
+          cpu: 200m
+          memory: 50Mi
       ephemeral: true
 ---
 apiVersion: actions.summerwind.dev/v1alpha1
