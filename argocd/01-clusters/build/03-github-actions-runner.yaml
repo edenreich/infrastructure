@@ -18,13 +18,18 @@ spec:
     helm:
       releaseName: github-actions-runner
       values: |
-        serviceAccount: github-actions-runner
+        serviceAccount:
+          name: github-actions-runner
+
         image:
           actionsRunnerImagePullSecrets:
             - ghcr
+
         imagePullSecrets:
           - ghcr
+
         defaultScaleDownDelay: 5m
+
         securityContext:
           runAsUser: 1000
           runAsGroup: 1000
