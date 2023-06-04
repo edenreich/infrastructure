@@ -15,7 +15,11 @@ spec:
   source:
     repoURL: "https://github.com/edenreich/blog-new.git"
     targetRevision: add-preview-apps
-    path: k8s
+    path: helm
+    helm:
+      parameters:
+        - name: image.tag
+          value: a40226a
   destination:
     namespace: preview-environment-1
     name: staging
