@@ -19,7 +19,7 @@ spec:
       releaseName: github-actions-runner
       values: |
         serviceAccount:
-          create: false
+          name: github-actions-runner
 
         image:
           actionsRunnerImagePullSecrets:
