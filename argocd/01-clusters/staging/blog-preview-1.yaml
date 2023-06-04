@@ -5,6 +5,11 @@ kind: Application
 metadata:
   name: preview-environment-1
   namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: preview-environment-1
+    project: staging
 spec:
   project: staging
   source:
