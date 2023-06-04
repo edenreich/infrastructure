@@ -17,6 +17,8 @@ spec:
     targetRevision: v0.27.4
     helm:
       releaseName: github-actions-runner
+      values: |
+        enableLeaderElection: false
   destination:
     name: in-cluster
     namespace: actions-runner-system
