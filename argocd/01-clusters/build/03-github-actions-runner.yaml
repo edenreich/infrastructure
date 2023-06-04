@@ -30,6 +30,14 @@ spec:
           minAvailable: 1
 
         defaultScaleDownDelay: 5m
+
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          capabilities:
+            drop:
+              - ALL
   destination:
     name: in-cluster
     namespace: actions-runner-system
