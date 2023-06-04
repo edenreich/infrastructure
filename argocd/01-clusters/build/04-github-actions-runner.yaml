@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: github-actions-runner-build
+  name: github-actions-runner
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -16,7 +16,7 @@ spec:
     path: charts/actions-runner-controller
     targetRevision: v0.27.4
     helm:
-      releaseName: github-actions-runner-build
+      releaseName: github-actions-runner
       parameters:
         - name: serviceAccount
           value: github-actions-runner
