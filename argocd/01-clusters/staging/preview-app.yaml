@@ -1,0 +1,27 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: blog-preview-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: blog-preview-app
+    project: staging
+spec:
+  project: staging
+  source:
+    repoURL: "https://github.com/edenreich/blog-new.git"
+    path: k8s/preview-apps
+    targetRevision: main
+  destination:
+    name: staging
+    namespace: blog-preview-app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - Replace=true
