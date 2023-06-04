@@ -19,18 +19,12 @@ spec:
         requests:
           cpu: 500m
           memory: 512Mi
-      volumeMounts:
-      - mountPath: /home/runner/.docker/config.json
-        name: ghcr
-        subPath: .dockerconfigjson
-        readOnly: true
-      volumes:
-      - name: ghcr
-        secret:
-          secretName: ghcr
-          items:
-          - key: .dockerconfigjson
-            path: .dockerconfigjson
+      env:
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: controller-manager
+              key: github_token
       ephemeral: true
 ---
 apiVersion: actions.summerwind.dev/v1alpha1
