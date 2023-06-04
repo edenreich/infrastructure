@@ -14,7 +14,7 @@ spec:
   source:
     repoURL: "https://github.com/edenreich/blog-new.git"
     path: k8s/preview-apps
-    targetRevision: main
+    targetRevision: add-preview-apps
   destination:
     name: staging
     namespace: blog-preview-app
