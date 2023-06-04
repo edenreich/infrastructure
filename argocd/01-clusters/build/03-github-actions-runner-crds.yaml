@@ -1,0 +1,27 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: github-actions-runner-build
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: github-actions-runner
+    project: build
+spec:
+  project: build
+  source:
+    repoURL: "https://github.com/actions-runner-controller/actions-runner-controller.git"
+    path: charts/actions-runner-controller/crds
+    targetRevision: v0.27.4
+  destination:
+    name: in-cluster
+    namespace: actions-runner-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - Replace=true
