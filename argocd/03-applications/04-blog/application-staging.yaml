@@ -2,18 +2,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: production
+  name: staging
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    name: production
+    name: staging
     project: infrastructure
 spec:
   project: infrastructure
   source:
     repoURL: "https://github.com/edenreich/infrastructure.git"
-    path: argocd/01-clusters/production
+    path: argocd/01-clusters/staging
     targetRevision: main
   destination:
     name: in-cluster

@@ -2,22 +2,22 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: production
+  name: blog
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    name: production
-    project: infrastructure
+    name: blog
+    project: production
 spec:
-  project: infrastructure
+  project: production
   source:
-    repoURL: "https://github.com/edenreich/infrastructure.git"
-    path: argocd/01-clusters/production
-    targetRevision: main
+    repoURL: "https://github.com/edenreich/blog-new.git"
+    path: k8s/production
+    targetRevision: add-preview-apps
   destination:
-    name: in-cluster
-    namespace: argocd
+    name: production
+    namespace: blog
   syncPolicy:
     automated:
       prune: true
