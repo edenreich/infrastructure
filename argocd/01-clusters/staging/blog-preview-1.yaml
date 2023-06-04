@@ -8,8 +8,8 @@ metadata:
 spec:
   project: staging
   source:
-    repoURL: edenreich/blog-new
-    targetRevision: 1/merge
+    repoURL: git://github.com/edenreich/blog-new.git
+    targetRevision: add-preview-apps
     path: k8s
   destination:
     namespace: preview-environment-1
