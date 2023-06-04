@@ -25,6 +25,9 @@ spec:
           actionsRunnerImagePullSecrets:
             - ghcr
 
+        imagePullSecrets:
+          - ghcr
+
         defaultScaleDownDelay: 5m
 
         securityContext:
