@@ -19,9 +19,19 @@ spec:
     helm:
       parameters:
         - name: image.tag
-          value: 9339078
-        - name: ingress.host
+          value: 1f4b630
+        - name: ingress.enabled
+          value: "true"
+        - name: ingress.hosts[0].host
           value: https://preview-app-1.eden-reich.com
+        - name: ingress.hosts[0].paths[0].path
+          value: /
+        - name: ingress.hosts[0].paths[0].pathType
+          value: Prefix
+        - name: ingress.hosts[0].paths[0].backend.service.name
+          value: blog
+        - name: ingress.hosts[0].paths[0].backend.service.port.number
+          value: 8080
   destination:
     namespace: preview-environment-1
     name: staging
