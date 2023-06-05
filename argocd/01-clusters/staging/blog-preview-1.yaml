@@ -13,13 +13,13 @@ metadata:
 spec:
   project: staging
   source:
-    repoURL: "https://github.com/edenreich/blog-new.git"
+    repoURL: https://github.com/edenreich/blog-new.git
     targetRevision: add-preview-apps
     path: helm
     helm:
       parameters:
         - name: image.tag
-          value: f88255a
+          value: fd3e234
         - name: ingress.enabled
           value: "true"
         - name: ingress.hosts[0].host
