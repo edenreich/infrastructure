@@ -22,8 +22,8 @@ spec:
           value: 077a22a1
         - name: ingress.enabled
           value: "true"
-        - name: ingress.annotations
-          value: "{\"nginx.ingress.kubernetes.io/from-to-www-redirect\": \"true\"}"
+        - name: ingress.annotations."nginx\.ingress\.kubernetes\.io/from-to-www-redirect"
+          value: "'true'"
         - name: ingress.hosts[0].host
           value: eden-reich.com
         - name: ingress.hosts[0].paths[0].path
