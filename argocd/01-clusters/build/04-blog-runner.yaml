@@ -54,14 +54,17 @@ spec:
           fieldRef:
             fieldPath: metadata.name
       volumes:
+      - name: docker
+        hostPath:
+          path: /mnt/ssd
+          type: Directory
+      - name: work
+        hostPath:
+          path: /mnt/ssd
+          type: Directory
       - hostPath:
           path: /mnt/ssd
-        name: docker
-      - hostPath:
-          path: /mnt/ssd
-        name: work
-      - hostPath:
-          path: /mnt/ssd
+          type: Directory
         name: tmp
         # - name: work
         #   ephemeral:
