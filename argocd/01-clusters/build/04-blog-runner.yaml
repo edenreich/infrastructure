@@ -34,39 +34,39 @@ spec:
         requests:
           cpu: 1000m
           memory: 1050Mi
-      dockerVolumeMounts:
-        - name: docker
-          mountPath: /var/lib/docker
-          subPathExpr: $(POD_NAME)-docker
-        - name: docker-socket
-          mountPath: /var/run/docker.sock
-          subPathExpr: $(POD_NAME)-docker-socket
-      volumeMounts:
-        - name: work
-          mountPath: /runner/_work
-          subPathExpr: $(POD_NAME)-work
-        - name: tmp
-          mountPath: /tmp
-          subPathExpr: $(POD_NAME)-tmp
+      # dockerVolumeMounts:
+      #   - name: docker
+      #     mountPath: /var/lib/docker
+      #     subPathExpr: $(POD_NAME)-docker
+      #   - name: docker-socket
+      #     mountPath: /var/run/docker.sock
+      #     subPathExpr: $(POD_NAME)-docker-socket
+      # volumeMounts:
+      #   - name: work
+      #     mountPath: /runner/_work
+      #     subPathExpr: $(POD_NAME)-work
+      #   - name: tmp
+      #     mountPath: /tmp
+      #     subPathExpr: $(POD_NAME)-tmp
       dockerEnv:
         - name: POD_NAME
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-      volumes:
-        - name: docker
-          hostPath:
-            path: /mnt/ssd
-            type: Directory
-        - name: docker-socket
-          hostPath:
-            path: /mnt/ssd
-            type: Directory
-        - name: work
-          hostPath:
-            path: /mnt/ssd
-            type: Directory
-        - hostPath:
-            path: /mnt/ssd
-            type: Directory
-          name: tmp
+      # volumes:
+      #   - name: docker
+      #     hostPath:
+      #       path: /mnt/ssd
+      #       type: Directory
+      #   - name: docker-socket
+      #     hostPath:
+      #       path: /mnt/ssd
+      #       type: Directory
+      #   - name: work
+      #     hostPath:
+      #       path: /mnt/ssd
+      #       type: Directory
+      #   - hostPath:
+      #       path: /mnt/ssd
+      #       type: Directory
+      #     name: tmp
