@@ -50,8 +50,6 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-        - name: DOCKER_GROUP_GID
-          value: "1000"
       volumes:
         - name: docker
           hostPath:
