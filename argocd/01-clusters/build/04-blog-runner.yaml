@@ -31,6 +31,16 @@ spec:
       #     name: ssd
       #   - mountPath: /var/lib/docker
       #     name: ssd
+      volumeMounts:
+        - mountPath: /runner
+          name: ssd
+        - mountPath: /runner/_work
+          name: ssd
+        - mountPath: /run/docker
+          name: ssd
+        # - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        #   name: kube-api-access-l78bz
+        #   readOnly: true
       volumes:
       - name: ssd
         ephemeral:
