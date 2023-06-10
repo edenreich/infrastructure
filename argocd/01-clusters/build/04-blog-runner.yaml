@@ -28,9 +28,9 @@ spec:
           memory: 1050Mi
       volumeMounts:
         - mountPath: /runner/_work
-          name: work
+          name: ssd
         - mountPath: /var/lib/docker
-          name: docker
+          name: ssd
       volumes:
       - name: ssd
         ephemeral:
