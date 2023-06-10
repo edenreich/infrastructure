@@ -29,8 +29,8 @@ spec:
       volumeMounts:
         - name: runner-ssd
           mountPath: /runner
-        - name: runner-ssd
-          mountPath: /runner/_work
+        # - name: runner-ssd
+        #   mountPath: /runner/_work
         - name: docker-sock
           mountPath: /run/docker
       volumes:
