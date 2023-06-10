@@ -38,6 +38,9 @@ spec:
         - name: docker
           mountPath: /var/lib/docker
           subPathExpr: $(POD_NAME)-docker
+        - name: docker-sock2
+          mountPath: /run/docker
+          subPathExpr: $(POD_NAME)-docker-sock
       volumeMounts:
         - name: work
           mountPath: /runner/_work
@@ -52,6 +55,10 @@ spec:
               fieldPath: metadata.name
       volumes:
         - name: docker
+          hostPath:
+            path: /mnt/ssd
+            type: Directory
+        - name: docker-sock2
           hostPath:
             path: /mnt/ssd
             type: Directory
