@@ -33,10 +33,10 @@ spec:
           memory: 1050Mi
       dockerVolumeMounts:
       - mountPath: /var/lib/docker
-        name: docker-ssd
+        name: docker
         subPathExpr: $(POD_NAME)-docker
       - mountPath: /runner/_work
-        name: runner-ssd
+        name: work
         subPathExpr: $(POD_NAME)-work
       volumeMounts:
         # - mountPath: /runner
@@ -45,10 +45,10 @@ spec:
         #   name: work
         # - mountPath: /run/docker
         #   name: docker-sock
-        - name: runner-ssd
+        - name: work
           mountPath: /runner/_work
           subPathExpr: $(POD_NAME)-work
-        - name: tmp-ssd
+        - name: tmp
           mountPath: /tmp
           subPathExpr: $(POD_NAME)-tmp
       volumes:
@@ -56,7 +56,7 @@ spec:
         #   emptyDir:
         #     medium: Memory
         #     sizeLimit: 1M
-        - name: runner-ssd
+        - name: work
           ephemeral:
             volumeClaimTemplate:
               spec:
@@ -66,7 +66,7 @@ spec:
                   requests:
                     storage: 10Gi
               storageClassName: ssd-storage
-        - name: docker-ssd
+        - name: docker
           ephemeral:
             volumeClaimTemplate:
               spec:
@@ -76,7 +76,7 @@ spec:
                   requests:
                     storage: 10Gi
               storageClassName: ssd-storage
-        - name: tmp-ssd
+        - name: tmp
           ephemeral:
             volumeClaimTemplate:
               spec:
