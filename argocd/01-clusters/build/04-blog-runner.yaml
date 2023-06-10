@@ -8,9 +8,9 @@ spec:
   replicas: 1
   template:
     spec:
-      # securityContext:
-      #   runAsUser: 1001
-      #   fsGroup: 1001
+      securityContext:
+        runAsUser: 1001
+        fsGroup: 1001
       env:
         - name: POD_NAME
           valueFrom:
@@ -66,3 +66,4 @@ spec:
           hostPath:
             path: /mnt/ssd
             type: Directory
+      ephemeral: true
