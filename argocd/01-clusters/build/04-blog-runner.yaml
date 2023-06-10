@@ -26,11 +26,11 @@ spec:
         requests:
           cpu: 1000m
           memory: 1050Mi
-      volumeMounts:
-        - mountPath: /runner/_work
-          name: ssd
-        - mountPath: /var/lib/docker
-          name: ssd
+      # volumeMounts:
+      #   - mountPath: /runner/_work
+      #     name: ssd
+      #   - mountPath: /var/lib/docker
+      #     name: ssd
       volumes:
       - name: ssd
         ephemeral:
