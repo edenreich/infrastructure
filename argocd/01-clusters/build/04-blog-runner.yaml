@@ -26,22 +26,48 @@ spec:
         requests:
           cpu: 1000m
           memory: 1050Mi
-      # volumeMounts:
-      #   - name: runner-ssd
-      #     mountPath: /runner
-      #   - name: docker-sock
-      #     mountPath: /run/docker
-      # volumes:
-      #   - name: docker-sock
-      #     emptyDir:
-      #       medium: Memory
-      #       sizeLimit: 1M
-      #   - name: runner-ssd
-      #     ephemeral:
-      #       volumeClaimTemplate:
-      #         spec:
-      #           accessModes:
-      #             - ReadWriteOnce
-      #           resources:
-      #             requests:
-      #               storage: 10Gi
+      volumeMounts:
+        # - mountPath: /runner
+        #   name: runner
+        # - mountPath: /runner/_work
+        #   name: work
+        # - mountPath: /run/docker
+        #   name: docker-sock
+        - name: runner-ssd
+          mountPath: /runner/_work
+          subPathExpr: $(POD_NAME)-work
+        - name: tmp-ssd
+          mountPath: /tmp
+          subPathExpr: $(POD_NAME)-tmp
+      volumes:
+        - name: docker-sock
+          emptyDir:
+            medium: Memory
+            sizeLimit: 1M
+        - name: runner-ssd
+          ephemeral:
+            volumeClaimTemplate:
+              spec:
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 10Gi
+              storageClassName: ssd-storage
+        - name: tmp-ssd
+          ephemeral:
+            volumeClaimTemplate:
+              spec:
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 10Gi
+              storageClassName: ssd-storage
+      ephemeral: true
+        # - name: runner
+        #   mountPath: /runner
+        # - name: docker-sock
+        #   mountPath: /run/docker
+        # - name: work
+        #   mountPath: /runner/_work
