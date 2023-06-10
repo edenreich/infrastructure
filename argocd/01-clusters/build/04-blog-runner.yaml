@@ -39,6 +39,8 @@ spec:
         - mountPath: /run/docker
           name: ssd-docker
       volumes:
+        - name: runner
+          emptyDir: {}
         - name: ssd-runner
           ephemeral:
             volumeClaimTemplate:
