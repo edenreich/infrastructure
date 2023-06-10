@@ -51,6 +51,11 @@ spec:
         - name: tmp
           mountPath: /tmp
           subPathExpr: $(POD_NAME)-tmp
+      dockerEnv:
+      - name: POD_NAME
+        valueFrom:
+          fieldRef:
+            fieldPath: metadata.name
       volumes:
         # - name: docker-sock
         #   emptyDir:
