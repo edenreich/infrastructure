@@ -35,8 +35,8 @@ spec:
           cpu: 1000m
           memory: 1050Mi
       dockerVolumeMounts:
-        - name: docker-sock
-          mountPath: /run/docker
+        # - name: docker-sock
+        #   mountPath: /run/docker
         - name: docker
           mountPath: /var/lib/docker
           subPathExpr: $(POD_NAME)-docker
