@@ -29,13 +29,9 @@ spec:
       volumeMounts:
         - name: runner-ssd
           mountPath: /runner
-        # - name: runner-ssd
-        #   mountPath: /runner/_work
         - name: docker-sock
           mountPath: /run/docker
       volumes:
-        - name: runner
-          emptyDir: {}
         - name: docker-sock
           emptyDir:
             medium: Memory
@@ -49,12 +45,12 @@ spec:
                 resources:
                   requests:
                     storage: 10Gi
-        - name: docker-ssd
-          ephemeral:
-            volumeClaimTemplate:
-              spec:
-                accessModes:
-                  - ReadWriteOnce
-                resources:
-                  requests:
-                    storage: 10Gi
+        # - name: docker-ssd
+        #   ephemeral:
+        #     volumeClaimTemplate:
+        #       spec:
+        #         accessModes:
+        #           - ReadWriteOnce
+        #         resources:
+        #           requests:
+        #             storage: 10Gi
