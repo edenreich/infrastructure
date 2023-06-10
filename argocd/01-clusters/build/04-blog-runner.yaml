@@ -53,10 +53,10 @@ spec:
             fieldRef:
               fieldPath: metadata.name
       volumes:
-        - name: docker-sock
-          emptyDir:
-            medium: Memory
-            sizeLimit: 1M
+        # - name: docker-sock
+        #   emptyDir:
+        #     medium: Memory
+        #     sizeLimit: 1M
         - name: docker
           hostPath:
             path: /mnt/ssd
