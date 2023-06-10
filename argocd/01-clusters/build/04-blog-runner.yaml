@@ -39,7 +39,7 @@ spec:
       #     mountPath: /var/lib/docker
       #     subPathExpr: $(POD_NAME)-docker
       #   - name: docker-socket
-      #     mountPath: /var/run/docker.sock
+      #     mountPath: /run/docker/docker.sock
       #     subPathExpr: $(POD_NAME)-docker-socket
       # volumeMounts:
       #   - name: work
