@@ -90,4 +90,4 @@ spec:
         #           requests:
         #             storage: 10Gi
         #       storageClassName: ssd-storage
-      ephemeral: true
+      # ephemeral: true
