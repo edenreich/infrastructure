@@ -27,12 +27,12 @@ spec:
           cpu: 1000m
           memory: 1050Mi
       volumeMounts:
-        - mountPath: /runner
-          name: runner
-        - mountPath: /runner/_work
-          name: ssd-runner
-        - mountPath: /run/docker
-          name: docker-sock
+        - name: runner-ssd
+          mountPath: /runner
+        - name: runner-ssd
+          mountPath: /runner/_work
+        - name: docker-sock
+          mountPath: /run/docker
       volumes:
         - name: runner
           emptyDir: {}
@@ -40,7 +40,7 @@ spec:
           emptyDir:
             medium: Memory
             sizeLimit: 1M
-        - name: ssd-runner
+        - name: runner-ssd
           ephemeral:
             volumeClaimTemplate:
               spec:
@@ -49,7 +49,7 @@ spec:
                 resources:
                   requests:
                     storage: 10Gi
-        - name: ssd-docker
+        - name: docker-ssd
           ephemeral:
             volumeClaimTemplate:
               spec:
