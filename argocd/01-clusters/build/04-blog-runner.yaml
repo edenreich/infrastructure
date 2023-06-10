@@ -33,21 +33,27 @@ spec:
       #     name: ssd
       volumeMounts:
         - mountPath: /runner
-          name: ssd
+          name: runner
         - mountPath: /runner/_work
-          name: ssd
+          name: ssd-runner
         - mountPath: /run/docker
-          name: ssd
-        # - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
-        #   name: kube-api-access-l78bz
-        #   readOnly: true
+          name: ssd-docker
       volumes:
-      - name: ssd
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes:
-                - ReadWriteOnce
-              resources:
-                requests:
-                  storage: 50Gi
+        - name: ssd-runner
+          ephemeral:
+            volumeClaimTemplate:
+              spec:
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 10Gi
+        - name: ssd-docker
+          ephemeral:
+            volumeClaimTemplate:
+              spec:
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 10Gi
