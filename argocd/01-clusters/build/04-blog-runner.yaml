@@ -19,18 +19,18 @@ spec:
         - k8s
       resources:
         limits:
-          cpu: 1200m
-          memory: 1200Mi
+          cpu: 700m
+          memory: 700Mi
         requests:
-          cpu: 1000m
-          memory: 1050Mi
+          cpu: 500m
+          memory: 500Mi
       dockerdContainerResources:
         limits:
-          cpu: 1200m
-          memory: 1200Mi
+          cpu: 700m
+          memory: 700Mi
         requests:
-          cpu: 1000m
-          memory: 1050Mi
+          cpu: 500m
+          memory: 700Mi
       dockerVolumeMounts:
         - name: docker
           mountPath: /var/lib/docker
