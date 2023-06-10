@@ -8,9 +8,9 @@ spec:
   replicas: 1
   template:
     spec:
-      securityContext:
-        runAsUser: 1001
-        fsGroup: 1001
+      # securityContext:
+      #   runAsUser: 1000
+      #   fsGroup: 1000
       env:
         - name: POD_NAME
           valueFrom:
