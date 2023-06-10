@@ -35,9 +35,12 @@ spec:
           cpu: 1000m
           memory: 1050Mi
       dockerVolumeMounts:
-        - mountPath: /var/lib/docker
-          name: docker
+        - name: docker
+          mountPath: /var/lib/docker
           subPathExpr: $(POD_NAME)-docker
+        - name: docker-socket
+          mountPath: /var/run/docker.sock
+          subPathExpr: $(POD_NAME)-docker-socket
       volumeMounts:
         - name: work
           mountPath: /runner/_work
@@ -52,6 +55,10 @@ spec:
               fieldPath: metadata.name
       volumes:
         - name: docker
+          hostPath:
+            path: /mnt/ssd
+            type: Directory
+        - name: docker-socket
           hostPath:
             path: /mnt/ssd
             type: Directory
