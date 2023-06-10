@@ -12,10 +12,10 @@ spec:
         runAsUser: 1000
         fsGroup: 1000
       env:
-      - name: POD_NAME
-        valueFrom:
-          fieldRef:
-            fieldPath: metadata.name
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
       repository: edenreich/blog-new
       labels:
         - self-hosted
@@ -35,12 +35,9 @@ spec:
           cpu: 1000m
           memory: 1050Mi
       dockerVolumeMounts:
-      - mountPath: /var/lib/docker
-        name: docker
-        subPathExpr: $(POD_NAME)-docker
-      - mountPath: /runner/_work
-        name: work
-        subPathExpr: $(POD_NAME)-work
+        - mountPath: /var/lib/docker
+          name: docker
+          subPathExpr: $(POD_NAME)-docker
       volumeMounts:
         - name: work
           mountPath: /runner/_work
@@ -49,51 +46,20 @@ spec:
           mountPath: /tmp
           subPathExpr: $(POD_NAME)-tmp
       dockerEnv:
-      - name: POD_NAME
-        valueFrom:
-          fieldRef:
-            fieldPath: metadata.name
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
       volumes:
-      - name: docker
-        hostPath:
-          path: /mnt/ssd
-          type: Directory
-      - name: work
-        hostPath:
-          path: /mnt/ssd
-          type: Directory
-      - hostPath:
-          path: /mnt/ssd
-          type: Directory
-        name: tmp
-        # - name: work
-        #   ephemeral:
-        #     volumeClaimTemplate:
-        #       spec:
-        #         accessModes:
-        #           - ReadWriteOnce
-        #         resources:
-        #           requests:
-        #             storage: 10Gi
-        #       storageClassName: ssd-storage
-        # - name: docker
-        #   ephemeral:
-        #     volumeClaimTemplate:
-        #       spec:
-        #         accessModes:
-        #           - ReadWriteOnce
-        #         resources:
-        #           requests:
-        #             storage: 10Gi
-        #       storageClassName: ssd-storage
-        # - name: tmp
-        #   ephemeral:
-        #     volumeClaimTemplate:
-        #       spec:
-        #         accessModes:
-        #           - ReadWriteOnce
-        #         resources:
-        #           requests:
-        #             storage: 10Gi
-        #       storageClassName: ssd-storage
-      # ephemeral: true
+        - name: docker
+          hostPath:
+            path: /mnt/ssd
+            type: Directory
+        - name: work
+          hostPath:
+            path: /mnt/ssd
+            type: Directory
+        - hostPath:
+            path: /mnt/ssd
+            type: Directory
+          name: tmp
