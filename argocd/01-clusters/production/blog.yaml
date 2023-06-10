@@ -19,7 +19,7 @@ spec:
     helm:
       parameters:
         - name: image.tag
-          value: "35803518"
+          value: "c0cc861a"
         - name: ingress.enabled
           value: "true"
         - name: ingress.hosts[0].host
@@ -51,4 +51,3 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - Replace=true
