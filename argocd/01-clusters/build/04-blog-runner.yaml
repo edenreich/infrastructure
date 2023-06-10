@@ -19,3 +19,25 @@ spec:
         requests:
           cpu: 1000m
           memory: 1050Mi
+      dockerdContainerResources:
+        limits:
+          cpu: 1200m
+          memory: 1200Mi
+        requests:
+          cpu: 1000m
+          memory: 1050Mi
+      volumeMounts:
+        - mountPath: /runner/_work
+          name: work
+        - mountPath: /var/lib/docker
+          name: docker
+      volumes:
+      - name: ssd
+        ephemeral:
+          volumeClaimTemplate:
+            spec:
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 50Gi
