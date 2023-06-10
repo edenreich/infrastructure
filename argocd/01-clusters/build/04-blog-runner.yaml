@@ -8,6 +8,11 @@ spec:
   replicas: 1
   template:
     spec:
+      env:
+      - name: POD_NAME
+        valueFrom:
+          fieldRef:
+            fieldPath: metadata.name
       repository: edenreich/blog-new
       labels:
         - self-hosted
@@ -26,6 +31,13 @@ spec:
         requests:
           cpu: 1000m
           memory: 1050Mi
+      dockerVolumeMounts:
+      - mountPath: /var/lib/docker
+        name: docker-ssd
+        subPathExpr: $(POD_NAME)-docker
+      - mountPath: /runner/_work
+        name: runner-ssd
+        subPathExpr: $(POD_NAME)-work
       volumeMounts:
         # - mountPath: /runner
         #   name: runner
@@ -40,11 +52,21 @@ spec:
           mountPath: /tmp
           subPathExpr: $(POD_NAME)-tmp
       volumes:
-        - name: docker-sock
-          emptyDir:
-            medium: Memory
-            sizeLimit: 1M
+        # - name: docker-sock
+        #   emptyDir:
+        #     medium: Memory
+        #     sizeLimit: 1M
         - name: runner-ssd
+          ephemeral:
+            volumeClaimTemplate:
+              spec:
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 10Gi
+              storageClassName: ssd-storage
+        - name: docker-ssd
           ephemeral:
             volumeClaimTemplate:
               spec:
