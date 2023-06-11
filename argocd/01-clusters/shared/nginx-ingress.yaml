@@ -32,6 +32,9 @@ spec:
         targetRevision: 0.13.2
         helm:
           releaseName: nginx-ingress
+          parameters:
+            - name: controller.replicaCount
+              value: "2"
       destination:
         name: "{{cluster}}"
         namespace: nginx-ingress
