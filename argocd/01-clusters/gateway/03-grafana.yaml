@@ -1,0 +1,29 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/part-of: observability
+spec:
+  project: gateway
+  source:
+    repoURL: "https://github.com/grafana-operator/grafana-operator"
+    targetRevision: v5.0.1
+    path: deploy/helm/grafana-operator
+    helm:
+      releaseName: grafana
+      parameters:
+        - name: namespaceScope
+          value: "true"
+  destination:
+    name: gateway
+    namespace: observability
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

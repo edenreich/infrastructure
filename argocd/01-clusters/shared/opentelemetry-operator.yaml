@@ -1,0 +1,51 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: opentelemetry-operator
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: opentelemetry-operator
+    app.kubernetes.io/part-of: observability
+spec:
+  generators:
+    - list:
+        elements:
+          # - cluster: staging
+          #   project: staging
+          # - cluster: production
+          #   project: production
+          - cluster: gateway
+            project: gateway
+  template:
+    metadata:
+      name: "opentelemetry-operator-{{project}}"
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
+      labels:
+        app.kubernetes.io/name: opentelemetry-operator
+        app.kubernetes.io/part-of: observability
+    spec:
+      project: "{{project}}"
+      source:
+        repoURL: "https://github.com/open-telemetry/opentelemetry-helm-charts"
+        targetRevision: opentelemetry-operator-0.32.0
+        path: charts/opentelemetry-operator
+        helm:
+          releaseName: opentelemetry-operator
+          parameters:
+            - name: replicaCount
+              value: "2"
+            - name: pdb.create
+              value: "true"
+            - name: pdb.minAvailable
+              value: "1"
+      destination:
+        name: "{{cluster}}"
+        namespace: observability
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

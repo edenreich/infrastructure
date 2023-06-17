@@ -1,0 +1,27 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: observability
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    app.kubernetes.io/name: observability
+    app.kubernetes.io/part-of: observability
+spec:
+  project: infrastructure
+  source:
+    directory:
+      recurse: true
+    repoURL: "https://github.com/edenreich/infrastructure"
+    targetRevision: main
+    path: observability
+  destination:
+    name: gateway
+    namespace: observability
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

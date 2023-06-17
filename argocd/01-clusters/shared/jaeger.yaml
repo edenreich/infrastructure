@@ -1,0 +1,51 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: jaeger-operator
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: jaeger-operator
+    app.kubernetes.io/part-of: observability
+spec:
+  generators:
+    - list:
+        elements:
+          # - cluster: staging
+          #   project: staging
+          # - cluster: production
+          #   project: production
+          - cluster: gateway
+            project: gateway
+  template:
+    metadata:
+      name: "jaeger-operator-{{project}}"
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
+      labels:
+        app.kubernetes.io/name: jaeger-operator
+        app.kubernetes.io/part-of: observability
+    spec:
+      project: "{{project}}"
+      source:
+        repoURL: "https://github.com/jaegertracing/helm-charts"
+        targetRevision: jaeger-operator-2.45.0
+        path: charts/jaeger-operator
+        helm:
+          releaseName: jaeger-operator
+          parameters:
+            - name: replicaCount
+              value: "2"
+            - name: pdb.create
+              value: "true"
+            - name: pdb.minAvailable
+              value: "1"
+      destination:
+        name: "{{cluster}}"
+        namespace: observability
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
