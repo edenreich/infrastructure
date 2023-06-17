@@ -2,12 +2,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: grafana
+  name: grafana-operator
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    app.kubernetes.io/name: grafana
+    app.kubernetes.io/name: grafana-operator
     app.kubernetes.io/part-of: observability
 spec:
   project: gateway
@@ -16,7 +16,7 @@ spec:
     targetRevision: v5.0.1
     path: deploy/helm/grafana-operator
     helm:
-      releaseName: grafana
+      releaseName: grafana-operator
       parameters:
         - name: namespaceScope
           value: "true"

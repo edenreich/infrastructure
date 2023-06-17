@@ -2,28 +2,22 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: observability
+  name: visualisation
+  namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    app.kubernetes.io/name: observability
+    app.kubernetes.io/name: visualisation
     app.kubernetes.io/part-of: observability
 spec:
-  project: infrastructure
+  project: gateway
   source:
-    directory:
-      recurse: true
-      include: '*.yaml'
-      exclude: 'visualisation/*.yaml'
     repoURL: https://github.com/edenreich/infrastructure.git
     targetRevision: main
-    path: observability
+    path: observability/visualisation
   destination:
     name: gateway
     namespace: observability
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
     syncOptions:
       - CreateNamespace=true
