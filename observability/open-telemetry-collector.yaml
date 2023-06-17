@@ -26,10 +26,10 @@ spec:
 
     exporters:
       logging:
-      jaeger:
-        endpoint: "http://jaeger-collector:14250"
-        tls:
-          insecure: true
+      jaeger_thrift_http:
+        endpoint: http://jaeger-collector:14250/api/traces
+        insecure: true
+        compression: "on"
 
     service:
       pipelines:
@@ -40,4 +40,4 @@ spec:
         traces:
           receivers: [otlp]
           processors: [batch, memory_limiter]
-          exporters: [logging, jaeger]
+          exporters: [logging, jaeger_thrift_http]
