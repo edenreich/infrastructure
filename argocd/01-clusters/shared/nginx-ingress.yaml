@@ -5,7 +5,8 @@ metadata:
   name: nginx-ingress
   namespace: argocd
   labels:
-    name: nginx-ingress
+    app.kubernetes.io/name: nginx-ingress
+    app.kubernetes.io/part-of: routing
 spec:
   generators:
     - list:
@@ -22,13 +23,13 @@ spec:
       finalizers:
         - resources-finalizer.argocd.argoproj.io
       labels:
-        name: nginx-ingress
-        project: "{{project}}"
+        app.kubernetes.io/name: nginx-ingress
+        app.kubernetes.io/part-of: routing
     spec:
       project: "{{project}}"
       source:
         chart: nginx-ingress
-        repoURL: "https://helm.nginx.com/stable"
+        repoURL: https://helm.nginx.com/stable
         targetRevision: 0.13.2
         helm:
           releaseName: nginx-ingress

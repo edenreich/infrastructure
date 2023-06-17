@@ -2,10 +2,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: system-upgrade
+  name: kubernetes-upgrades
   namespace: argocd
   labels:
-    name: system-upgrade
+    app.kubernetes.io/name: kubernetes-upgrades
+    app.kubernetes.io/part-of: system-upgrades
 spec:
   generators:
     - list:
@@ -20,21 +21,21 @@ spec:
             project: gateway
   template:
     metadata:
-      name: "system-upgrade-{{project}}"
+      name: "kubernetes-upgrades-{{project}}"
       finalizers:
         - resources-finalizer.argocd.argoproj.io
       labels:
-        name: system-upgrade
-        project: "{{project}}"
+        app.kubernetes.io/name: kubernetes-upgrades
+        app.kubernetes.io/part-of: system-upgrades
     spec:
       project: "{{project}}"
       source:
-        repoURL: "https://github.com/rancher/system-upgrade-controller.git"
+        repoURL: https://github.com/rancher/system-upgrade-controller.git
         targetRevision: HEAD
-        path: "manifests"
+        path: manifests
       destination:
         name: "{{cluster}}"
-        namespace: system-upgrade
+        namespace: system-upgrades
       syncPolicy:
         automated:
           prune: true

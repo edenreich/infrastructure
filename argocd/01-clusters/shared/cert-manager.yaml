@@ -5,7 +5,8 @@ metadata:
   name: cert-manager
   namespace: argocd
   labels:
-    name: cert-manager
+    app.kubernetes.io/name: cert-manager
+    app.kubernetes.io/part-of: certificates-management
 spec:
   generators:
     - list:
@@ -24,13 +25,13 @@ spec:
       finalizers:
         - resources-finalizer.argocd.argoproj.io
       labels:
-        name: cert-manager
-        project: "{{project}}"
+        app.kubernetes.io/name: cert-manager
+        app.kubernetes.io/part-of: certificates-management
     spec:
       project: "{{project}}"
       source:
         chart: cert-manager
-        repoURL: "https://charts.jetstack.io"
+        repoURL: https://charts.jetstack.io
         targetRevision: v1.9.1
         helm:
           releaseName: cert-manager
