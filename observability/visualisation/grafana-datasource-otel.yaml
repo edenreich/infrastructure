@@ -12,6 +12,10 @@ spec:
     matchLabels:
       dashboards: grafana
   datasource:
-    name: prometheus
+    name: Prometheus
     type: prometheus
     url: http://otel-collector-collector-monitoring:8888
+    access: proxy
+    jsonData:
+      tlsSkipVerify: true
+      timeInterval: 5s

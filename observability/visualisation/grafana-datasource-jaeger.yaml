@@ -1,23 +1,23 @@
----
-apiVersion: grafana.integreatly.org/v1beta1
-kind: GrafanaDatasource
-metadata:
-  name: jaeger
-  namespace: observability
-  labels:
-    app.kubernetes.io/name: jaeger
-    app.kubernetes.io/part-of: observability
-spec:
-  instanceSelector:
-    matchLabels:
-      dashboards: grafana
-  datasource:
-    isDefault: true
-    name: jaeger
-    type: jaeger
-    access: proxy
-    url: http://jaeger-query:16686
-    jsonData:
-      'tlsSkipVerify': true
-      'timeInterval': "5s"
-    editable: true
+# ---
+# apiVersion: grafana.integreatly.org/v1beta1
+# kind: GrafanaDatasource
+# metadata:
+#   name: jaeger
+#   namespace: observability
+#   labels:
+#     app.kubernetes.io/name: jaeger
+#     app.kubernetes.io/part-of: observability
+# spec:
+#   instanceSelector:
+#     matchLabels:
+#       dashboards: grafana
+#   datasource:
+#     isDefault: true
+#     name: jaeger
+#     type: jaeger
+#     access: proxy
+#     url: http://jaeger-query:16686
+#     jsonData:
+#       'tlsSkipVerify': true
+#       'timeInterval': "5s"
+#     editable: true
