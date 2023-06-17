@@ -9,6 +9,7 @@ metadata:
   labels:
     app.kubernetes.io/name: staging
     app.kubernetes.io/part-of: staging
+    app.kubernetes.io/app-of-apps: "true"
 spec:
   project: infrastructure
   source:

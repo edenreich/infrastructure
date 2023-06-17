@@ -9,6 +9,7 @@ metadata:
   labels:
     app.kubernetes.io/name: production
     app.kubernetes.io/part-of: production
+    app.kubernetes.io/app-of-apps: "true"
 spec:
   project: infrastructure
   source:

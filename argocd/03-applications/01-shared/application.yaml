@@ -8,6 +8,7 @@ metadata:
   labels:
     app.kubernetes.io/name: shared
     app.kubernetes.io/part-of: shared
+    app.kubernetes.io/app-of-apps: "true"
 spec:
   project: infrastructure
   source:
