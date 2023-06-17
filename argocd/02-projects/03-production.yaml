@@ -5,7 +5,7 @@ metadata:
   name: production
   namespace: argocd
   labels:
-    name: production
+    app.kubernetes.io/name: production
 spec:
   description: "Production project"
   clusterResourceWhitelist:

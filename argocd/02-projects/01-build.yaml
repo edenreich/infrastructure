@@ -5,7 +5,7 @@ metadata:
   name: build
   namespace: argocd
   labels:
-    name: build
+    app.kubernetes.io/name: build
 spec:
   description: "Build project"
   clusterResourceWhitelist:

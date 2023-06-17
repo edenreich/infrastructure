@@ -5,7 +5,7 @@ metadata:
   name: staging
   namespace: argocd
   labels:
-    name: staging
+    app.kubernetes.io/name: staging
 spec:
   description: "Staging project"
   clusterResourceWhitelist:

@@ -5,7 +5,7 @@ metadata:
   name: gateway
   namespace: argocd
   labels:
-    name: gateway
+    app.kubernetes.io/name: gateway
 spec:
   description: "Gateway project"
   clusterResourceWhitelist:

@@ -5,7 +5,7 @@ metadata:
   name: infrastructure
   namespace: argocd
   labels:
-    name: infrastructure
+    app.kubernetes.io/name: infrastructure
 spec:
   description: "Infrastructure project"
   clusterResourceWhitelist:
