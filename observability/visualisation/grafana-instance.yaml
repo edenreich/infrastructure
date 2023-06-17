@@ -16,13 +16,3 @@ spec:
     security:
       admin_user: admin
       admin_password: secret
-  datasources:
-    - name: jaeger
-      type: jaeger
-      access: proxy
-      url: http://jaeger-query:16686
-      jsonData:
-        traceNameLimit: 80
-        tags:
-          regex: ""
-          exclude: false
