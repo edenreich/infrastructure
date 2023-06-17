@@ -10,7 +10,7 @@ metadata:
 spec:
   project: gateway
   source:
-    repoURL: "https://github.com/grafana-operator/grafana-operator"
+    repoURL: https://github.com/grafana-operator/grafana-operator.git
     targetRevision: v5.0.1
     path: deploy/helm/grafana-operator
     helm:

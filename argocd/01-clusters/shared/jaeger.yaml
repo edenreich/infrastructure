@@ -28,7 +28,7 @@ spec:
     spec:
       project: "{{project}}"
       source:
-        repoURL: "https://github.com/jaegertracing/helm-charts"
+        repoURL: https://github.com/jaegertracing/helm-charts.git
         targetRevision: jaeger-operator-2.45.0
         path: charts/jaeger-operator
         helm:

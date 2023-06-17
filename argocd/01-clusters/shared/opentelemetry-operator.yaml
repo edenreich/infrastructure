@@ -28,7 +28,7 @@ spec:
     spec:
       project: "{{project}}"
       source:
-        repoURL: "https://github.com/open-telemetry/opentelemetry-helm-charts"
+        repoURL: https://github.com/open-telemetry/opentelemetry-helm-charts.git
         targetRevision: opentelemetry-operator-0.32.0
         path: charts/opentelemetry-operator
         helm:
