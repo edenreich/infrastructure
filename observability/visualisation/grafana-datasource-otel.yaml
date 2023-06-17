@@ -12,7 +12,7 @@ spec:
     matchLabels:
       app.kubernetes.io/name: grafana
   datasource:
-    name: prometheus
+    name: OpenTelemetry
     type: prometheus
     url: http://otel-collector-collector-monitoring:8888/metrics
     access: proxy
