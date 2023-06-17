@@ -14,9 +14,13 @@ spec:
   datasource:
     name: OpenTelemetry
     type: prometheus
-    url: http://otel-collector-collector-monitoring:8888/metrics
+    url: http://otel-collector-collector-monitoring:8888
     access: proxy
     jsonData:
-      tlsSkipVerify: true
-      timeInterval: 5s
+      httpMethod: POST
+      manageAlerts: true
+      prometheusType: Prometheus
+      incrementalQuerying: true
+      incrementalQueryOverlapWindow: 10m
+      cacheLevel: 'High'
     editable: true
