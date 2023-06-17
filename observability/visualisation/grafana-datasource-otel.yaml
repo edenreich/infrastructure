@@ -14,7 +14,7 @@ spec:
   datasource:
     name: Prometheus
     type: prometheus
-    url: http://otel-collector-collector-monitoring:8888
+    url: http://otel-collector-collector-monitoring:8888/metrics
     access: proxy
     jsonData:
       tlsSkipVerify: true
