@@ -28,14 +28,13 @@ spec:
       logging:
       jaeger:
         endpoint: "http://jaeger-collector:14250"
-        insecure: true
 
     service:
       pipelines:
         metrics:
           receivers: [otlp]
           processors: [batch, memory_limiter]
-          exporters: [logging, prometheus]
+          exporters: [logging]
         traces:
           receivers: [otlp]
           processors: [batch, memory_limiter]
