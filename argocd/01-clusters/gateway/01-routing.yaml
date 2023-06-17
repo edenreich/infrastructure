@@ -7,8 +7,8 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    name: routing
-    project: gateway
+    app.kubernetes.io/name: routing-gateway
+    app.kubernetes.io/part-of: routing
 spec:
   project: gateway
   source:

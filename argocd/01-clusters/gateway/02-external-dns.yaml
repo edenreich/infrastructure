@@ -7,8 +7,8 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    name: external-dns
-    project: gateway
+    app.kubernetes.io/name: external-dns
+    app.kubernetes.io/part-of: routing
 spec:
   project: gateway
   source:
