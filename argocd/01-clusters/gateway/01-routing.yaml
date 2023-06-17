@@ -12,9 +12,9 @@ metadata:
 spec:
   project: gateway
   source:
-    repoURL: "https://github.com/edenreich/infrastructure"
+    repoURL: https://github.com/edenreich/infrastructure.git
     targetRevision: main
-    path: gateway
+    path: routing
   destination:
     name: gateway
     namespace: main

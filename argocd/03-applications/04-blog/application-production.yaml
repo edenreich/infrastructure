@@ -12,7 +12,7 @@ metadata:
 spec:
   project: infrastructure
   source:
-    repoURL: "https://github.com/edenreich/infrastructure.git"
+    repoURL: https://github.com/edenreich/infrastructure.git
     path: argocd/01-clusters/production
     targetRevision: main
   destination:

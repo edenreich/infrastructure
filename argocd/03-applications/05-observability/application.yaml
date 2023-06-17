@@ -13,7 +13,7 @@ spec:
   source:
     directory:
       recurse: true
-    repoURL: "https://github.com/edenreich/infrastructure"
+    repoURL: https://github.com/edenreich/infrastructure.git
     targetRevision: main
     path: observability
   destination:
