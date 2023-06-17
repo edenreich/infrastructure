@@ -28,6 +28,7 @@ spec:
       logging:
       jaeger:
         endpoint: "http://jaeger-collector:14250"
+        tls: false
 
     service:
       pipelines:
