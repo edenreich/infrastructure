@@ -35,7 +35,7 @@ spec:
         path: manifests
       destination:
         name: "{{cluster}}"
-        namespace: system-upgrades
+        namespace: system-upgrade
       syncPolicy:
         automated:
           prune: true

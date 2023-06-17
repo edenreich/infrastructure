@@ -3,7 +3,7 @@ apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
   name: server-plan
-  namespace: system-upgrades
+  namespace: system-upgrade
   labels:
     app.kubernetes.io/name: server-plan
     app.kubernetes.io/part-of: system-upgrades
