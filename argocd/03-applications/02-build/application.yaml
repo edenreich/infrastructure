@@ -6,8 +6,8 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    name: build
-    project: infrastructure
+    app.kubernetes.io/name: build
+    app.kubernetes.io/part-of: build
 spec:
   project: infrastructure
   source:

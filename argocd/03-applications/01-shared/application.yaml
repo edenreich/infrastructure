@@ -6,8 +6,8 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    name: shared
-    project: infrastructure
+    app.kubernetes.io/name: shared
+    app.kubernetes.io/part-of: shared
 spec:
   project: infrastructure
   source:
