@@ -3,7 +3,10 @@ apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
   name: agent-plan
-  namespace: system-upgrade
+  namespace: system-upgrades
+  labels:
+    app.kubernetes.io/name: agent-plan
+    app.kubernetes.io/part-of: system-upgrades
 spec:
   concurrency: 1
   cordon: true
