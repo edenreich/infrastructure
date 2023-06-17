@@ -12,4 +12,7 @@ spec:
     log:
       mode: console
     auth:
-      disable_login_form: "true"
+      disable_login_form: "false"
+    security:
+      admin_user: admin
+      admin_password: secret
