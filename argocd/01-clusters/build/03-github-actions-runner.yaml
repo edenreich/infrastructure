@@ -7,8 +7,8 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    name: github-actions-runner
-    project: build
+    app.kubernetes.io/name: github-actions-runner
+    app.kubernetes.io/part-of: actions-runner
 spec:
   project: build
   source:

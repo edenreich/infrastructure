@@ -4,6 +4,9 @@ kind: RunnerDeployment
 metadata:
   name: blog-runner
   namespace: actions-runner-system
+  labels:
+    app.kubernetes.io/name: blog-runner
+    app.kubernetes.io/part-of: actions-runner
 spec:
   replicas: 1
   template:
@@ -70,6 +73,9 @@ kind: HorizontalRunnerAutoscaler
 metadata:
   name: blog-runner
   namespace: actions-runner-system
+  labels:
+    app.kubernetes.io/name: blog-runner
+    app.kubernetes.io/part-of: actions-runner
 spec:
   scaleTargetRef:
     name: blog-runner
