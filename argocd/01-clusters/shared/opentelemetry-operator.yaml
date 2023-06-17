@@ -40,6 +40,8 @@ spec:
               value: "true"
             - name: pdb.minAvailable
               value: "1"
+            - name: manager.env.WATCH_NAMESPACE
+              value: "observability"
       destination:
         name: "{{cluster}}"
         namespace: observability
