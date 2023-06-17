@@ -8,8 +8,8 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    name: blog
-    project: production
+    app.kubernetes.io/name: blog
+    app.kubernetes.io/part-of: blog
 spec:
   project: production
   source:
