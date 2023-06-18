@@ -12,7 +12,7 @@ metadata:
 spec:
   project: build
   source:
-    repoURL: "https://github.com/actions-runner-controller/actions-runner-controller.git"
+    repoURL: https://github.com/actions-runner-controller/actions-runner-controller.git
     path: charts/actions-runner-controller
     targetRevision: v0.27.4
     helm:

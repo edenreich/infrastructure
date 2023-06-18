@@ -12,8 +12,8 @@ metadata:
 spec:
   project: gateway
   source:
-    repoURL: "https://github.com/kubernetes-sigs/external-dns.git"
-    path: "charts/external-dns"
+    repoURL: https://github.com/kubernetes-sigs/external-dns.git
+    path: charts/external-dns
     targetRevision: v0.13.1
     helm:
       releaseName: external-dns
