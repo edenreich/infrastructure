@@ -8,8 +8,8 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    app.kubernetes.io/name: blog
-    app.kubernetes.io/part-of: blog
+    name: blog
+    project: production
 spec:
   project: production
   source:
@@ -19,7 +19,7 @@ spec:
     helm:
       parameters:
         - name: image.tag
-          value: "ee71383f"
+          value: "d37f81a2"
         - name: ingress.enabled
           value: "true"
         - name: ingress.hosts[0].host
