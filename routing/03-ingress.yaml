@@ -37,7 +37,7 @@ spec:
                 name: production-cluster
                 port:
                   number: 8080
-    - host: travel.eden-reich.com
+    - host: travel-blog.eden-reich.com
       http:
         paths:
           - backend:
@@ -47,7 +47,7 @@ spec:
                   number: 8080
             path: /
             pathType: Prefix
-    - host: engineering.eden-reich.com
+    - host: engineering-blog.eden-reich.com
       http:
         paths:
           - backend:
@@ -61,8 +61,8 @@ spec:
     - hosts:
         - www.eden-reich.com
         - eden-reich.com
-        - engineering.eden-reich.com
-        - travel.eden-reich.com
+        - engineering-blog.eden-reich.com
+        - travel-blog.eden-reich.com
       secretName: eden-reich.com-tls
 ---
 apiVersion: networking.k8s.io/v1
