@@ -1,0 +1,88 @@
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: travel-blog-runner
+  namespace: actions-runner-system
+  labels:
+    app.kubernetes.io/name: travel-blog-runner
+    app.kubernetes.io/part-of: actions-runner
+spec:
+  replicas: 1
+  template:
+    spec:
+      env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+      repository: edenreich/travel-blog
+      labels:
+        - self-hosted
+        - k8s
+      resources:
+        limits:
+          cpu: 700m
+          memory: 700Mi
+        requests:
+          cpu: 500m
+          memory: 500Mi
+      dockerdContainerResources:
+        limits:
+          cpu: 700m
+          memory: 700Mi
+        requests:
+          cpu: 500m
+          memory: 700Mi
+      dockerVolumeMounts:
+        - name: docker
+          mountPath: /var/lib/docker
+          subPathExpr: $(POD_NAME)-docker
+        - name: work
+          mountPath: /runner/_work
+          subPathExpr: $(POD_NAME)-work
+      volumeMounts:
+        - name: work
+          mountPath: /runner/_work
+          subPathExpr: $(POD_NAME)-work
+        - name: tmp
+          mountPath: /tmp
+          subPathExpr: $(POD_NAME)-tmp
+      dockerEnv:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+      volumes:
+        - name: docker
+          hostPath:
+            path: /mnt/ssd
+            type: Directory
+        - name: work
+          hostPath:
+            path: /mnt/ssd
+            type: Directory
+        - name: tmp
+          hostPath:
+            path: /mnt/ssd
+            type: Directory
+      ephemeral: true
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: HorizontalRunnerAutoscaler
+metadata:
+  name: travel-blog-runner
+  namespace: actions-runner-system
+  labels:
+    app.kubernetes.io/name: travel-blog-runner
+    app.kubernetes.io/part-of: actions-runner
+spec:
+  scaleTargetRef:
+    name: travel-blog-runner
+  minReplicas: 1
+  maxReplicas: 3
+  scaleUpTriggers:
+    - githubEvent:
+        workflowJob: {}
+      amount: 1
+      duration: "5m"
