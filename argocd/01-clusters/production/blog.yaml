@@ -13,7 +13,7 @@ metadata:
 spec:
   project: production
   source:
-    repoURL: https://github.com/edenreich/blog-new.git
+    repoURL: https://github.com/edenreich/engineering-blog.git
     targetRevision: main
     path: helm
     helm:

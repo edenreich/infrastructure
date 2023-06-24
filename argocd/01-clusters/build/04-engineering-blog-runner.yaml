@@ -16,7 +16,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-      repository: edenreich/blog-new
+      repository: edenreich/engineering-blog
       labels:
         - self-hosted
         - k8s
