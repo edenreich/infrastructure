@@ -23,7 +23,7 @@ spec:
         - name: ingress.enabled
           value: "true"
         - name: ingress.hosts[0].host
-          value: travel-blog-pr-1.preview.eden-reich.com
+          value: travel-blog-pr-1-preview.eden-reich.com
         - name: ingress.hosts[0].paths[0].path
           value: /
         - name: ingress.hosts[0].paths[0].pathType
