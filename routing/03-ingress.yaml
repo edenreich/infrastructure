@@ -37,6 +37,26 @@ spec:
                 name: production-cluster
                 port:
                   number: 8080
+    - host: travel.eden-reich.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: production-cluster
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix
+    - host: engineering.eden-reich.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: production-cluster
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix
   tls:
     - hosts:
         - www.eden-reich.com
