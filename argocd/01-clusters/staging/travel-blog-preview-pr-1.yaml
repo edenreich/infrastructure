@@ -19,7 +19,7 @@ spec:
     helm:
       parameters:
         - name: image.tag
-          value: "81d42b42"
+          value: "10bea7b6"
         - name: ingress.enabled
           value: "true"
         - name: ingress.hosts[0].host
