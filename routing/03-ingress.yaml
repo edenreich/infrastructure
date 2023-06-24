@@ -95,4 +95,4 @@ spec:
   tls:
     - hosts:
         - '*.preview.eden-reich.com'
-      secretName: preview.eden-reich.com-tls
+      secretName: eden-reich.com-tls
