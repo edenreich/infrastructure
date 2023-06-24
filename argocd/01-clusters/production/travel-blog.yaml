@@ -19,11 +19,11 @@ spec:
     helm:
       parameters:
         - name: image.tag
-          value: "c73721e7"
+          value: "77872624"
         - name: ingress.enabled
           value: "true"
         - name: ingress.hosts[0].host
-          value: travel.eden-reich.com
+          value: travel-blog.eden-reich.com
         - name: ingress.hosts[0].paths[0].path
           value: /
         - name: ingress.hosts[0].paths[0].pathType
