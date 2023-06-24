@@ -2,10 +2,10 @@
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: RunnerDeployment
 metadata:
-  name: blog-runner
+  name: engineering-blog-runner
   namespace: actions-runner-system
   labels:
-    app.kubernetes.io/name: blog-runner
+    app.kubernetes.io/name: engineering-blog-runner
     app.kubernetes.io/part-of: actions-runner
 spec:
   replicas: 1
@@ -71,14 +71,14 @@ spec:
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: HorizontalRunnerAutoscaler
 metadata:
-  name: blog-runner
+  name: engineering-blog-runner
   namespace: actions-runner-system
   labels:
-    app.kubernetes.io/name: blog-runner
+    app.kubernetes.io/name: engineering-blog-runner
     app.kubernetes.io/part-of: actions-runner
 spec:
   scaleTargetRef:
-    name: blog-runner
+    name: engineering-blog-runner
   minReplicas: 1
   maxReplicas: 3
   scaleUpTriggers:
