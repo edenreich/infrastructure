@@ -50,6 +50,9 @@ deploy-sealed-secrets-keys: kubectl
 		kubectl label secret sealed-secrets sealedsecrets.bitnami.com/sealed-secrets-key=active \
 			--context=$$context \
 			--namespace=sealed-secrets; \
+		kubectl rollout restart deployment sealed-secrets \
+			--context=$$context \
+			--namespace=sealed-secrets; \
 	done
 
 deploy-cloudflare-keys: kubectl
