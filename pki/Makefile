@@ -11,13 +11,23 @@ help:
 	@printf "Usage:\n"
 	@printf " make <command>\n\n"
 	@printf "Commands:\n"
-	@printf " deploy-sealed-secrets-keys    Deploy Sealed Secrets keys\n"
-	@printf " deploy-cloudflare-keys        Deploy Cloudflare keys\n"
+	@printf " cleanup-sealed-secrets-keys    Cleanup Sealed Secrets keys\n"
+	@printf " deploy-sealed-secrets-keys     Deploy Sealed Secrets keys\n"
+	@printf " deploy-cloudflare-keys         Deploy Cloudflare keys\n"
 
 default: help
 
 kubectl:
 	@which kubectl > /dev/null || (echo "kubectl not installed!" && exit 1)
+
+cleanup-sealed-secrets-keys: kubectl
+	@for context in `echo ${SEALED_SECRETS_CONTEXTS} | xargs`; do \
+		echo "==> Cleaning up Bitnami Sealed Secrets private and public keys for ${context}..."; \
+		echo "===> Creating namespace sealed-secrets if not exists..."; \
+		kubectl delete secret --all \
+			--context=$$context \
+			--namespace=sealed-secrets; \
+	done
 
 deploy-sealed-secrets-keys: kubectl
 	@for context in `echo ${SEALED_SECRETS_CONTEXTS} | xargs`; do \
