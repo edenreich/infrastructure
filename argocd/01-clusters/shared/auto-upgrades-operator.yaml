@@ -21,20 +21,20 @@ spec:
             project: gateway
   template:
     metadata:
-      name: "kubernetes-upgrades-{{project}}"
+      name: 'kubernetes-upgrades-{{project}}'
       finalizers:
         - resources-finalizer.argocd.argoproj.io
       labels:
         app.kubernetes.io/name: kubernetes-upgrades
         app.kubernetes.io/part-of: system-upgrades
     spec:
-      project: "{{project}}"
+      project: '{{project}}'
       source:
         repoURL: https://github.com/rancher/system-upgrade-controller.git
-        targetRevision: HEAD
+        targetRevision: v0.13.2
         path: manifests
       destination:
-        name: "{{cluster}}"
+        name: '{{cluster}}'
         namespace: system-upgrade
       syncPolicy:
         automated:
