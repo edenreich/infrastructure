@@ -8,14 +8,6 @@ metadata:
     name: production
 spec:
   endpoints:
-    - dnsName: eden-reich.com
-      recordTTL: 120
-      recordType: CNAME
-      targets:
-        - engineering-blog.eden-reich.com
-      providerSpecific:
-        - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
-          value: 'true'
     - dnsName: www.eden-reich.com
       recordTTL: 120
       recordType: CNAME
