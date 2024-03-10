@@ -1,0 +1,18 @@
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: engineering-blog-production
+  namespace: main
+  labels:
+    name: production
+spec:
+  endpoints:
+    - dnsName: engineering-blog.eden-reich.com
+      recordTTL: 120
+      recordType: CNAME
+      targets:
+        - edenreich.github.io
+      providerSpecific:
+        - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
+          value: 'true'
