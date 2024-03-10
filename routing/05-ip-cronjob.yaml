@@ -39,7 +39,7 @@ metadata:
   name: ip
   namespace: main
 spec:
-  schedule: "* * * * *"
+  schedule: '* * * * *'
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
   startingDeadlineSeconds: 180
@@ -64,8 +64,7 @@ spec:
                   CURRENT_IP=$(curl --silent ifconfig.me);
                   if [ "$CURRENT_CONFIGURED_IP_STAGING" != "$CURRENT_IP" ] || [ "$CURRENT_CONFIGURED_IP_PRODUCTION" != "$CURRENT_IP" ]; then
                     echo "IP has changed, updating ingress...";
-                    kubectl --namespace=main annotate ingress production external-dns.alpha.kubernetes.io/target=$CURRENT_IP --overwrite
-                    kubectl --namespace=main annotate ingress staging external-dns.alpha.kubernetes.io/target=$CURRENT_IP --overwrite
+                    kubectl --namespace=main annotate ingress travel-blog-production external-dns.alpha.kubernetes.io/target=$CURRENT_IP --overwrite
                   else
                     echo "Current configured IP $CURRENT_CONFIGURED_IP has not changed, it's still the same as $CURRENT_IP, no action required.";
                   fi;
