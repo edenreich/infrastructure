@@ -8,7 +8,7 @@ metadata:
     name: production
 spec:
   endpoints:
-    - dnsName: wwww.eden-reich.com
+    - dnsName: www.eden-reich.com
       recordTTL: 120
       recordType: CNAME
       targets:
