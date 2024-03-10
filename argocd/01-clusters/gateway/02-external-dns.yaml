@@ -19,6 +19,7 @@ spec:
       releaseName: external-dns
       values: |
         provider: cloudflare
+        txtPrefix: "managed-by-external-dns-"
         triggerLoopOnEvent: true
         policy: sync
         extraArgs:
