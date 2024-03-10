@@ -20,7 +20,15 @@ spec:
       recordTTL: 120
       recordType: CNAME
       targets:
-        - edenreich.github.io
+        - engineering-blog.eden-reich.com
+      providerSpecific:
+        - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
+          value: 'true'
+    - dnsName: eden-reich.com
+      recordTTL: 120
+      recordType: CNAME
+      targets:
+        - engineering-blog.eden-reich.com
       providerSpecific:
         - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
           value: 'true'
