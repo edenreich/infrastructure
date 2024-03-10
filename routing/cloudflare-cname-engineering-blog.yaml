@@ -10,12 +10,9 @@ spec:
   endpoints:
     - dnsName: engineering-blog.eden-reich.com
       recordTTL: 120
-      recordType: A
+      recordType: CNAME
       targets:
-        - 185.199.108.153
-        - 185.199.109.153
-        - 185.199.110.153
-        - 185.199.111.153
+        - edenreich.github.io
       providerSpecific:
         - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
           value: 'true'
@@ -23,7 +20,7 @@ spec:
       recordTTL: 120
       recordType: CNAME
       targets:
-        - engineering-blog.eden-reich.com
+        - edenreich.github.io
       providerSpecific:
         - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
           value: 'true'
