@@ -11,43 +11,13 @@ metadata:
     nginx.ingress.kubernetes.io/use-proxy-protocol: "true"
     nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
     nginx.ingress.kubernetes.io/enable-real-ip: "true"
-    external-dns.alpha.kubernetes.io/hostname: "eden-reich.com,www.eden-reich.com,engineering-blog.eden-reich.com,travel-blog.eden-reich.com"
+    external-dns.alpha.kubernetes.io/hostname: "travel-blog.eden-reich.com"
     external-dns.alpha.kubernetes.io/target: "1.1.1.1"
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
 spec:
   ingressClassName: nginx
   rules:
-    - host: eden-reich.com
-      http:
-        paths:
-          - pathType: Prefix
-            path: "/"
-            backend:
-              service:
-                name: production-cluster
-                port:
-                  number: 8080
-    - host: www.eden-reich.com
-      http:
-        paths:
-          - pathType: Prefix
-            path: "/"
-            backend:
-              service:
-                name: production-cluster
-                port:
-                  number: 8080
     - host: travel-blog.eden-reich.com
-      http:
-        paths:
-          - backend:
-              service:
-                name: production-cluster
-                port:
-                  number: 8080
-            path: /
-            pathType: Prefix
-    - host: engineering-blog.eden-reich.com
       http:
         paths:
           - backend:
@@ -59,9 +29,6 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - www.eden-reich.com
-        - eden-reich.com
-        - engineering-blog.eden-reich.com
         - travel-blog.eden-reich.com
       secretName: eden-reich.com-tls
 ---
@@ -94,5 +61,5 @@ spec:
                   number: 8080
   tls:
     - hosts:
-        - '*.eden-reich.com'
+        - "*.eden-reich.com"
       secretName: eden-reich.com-tls
