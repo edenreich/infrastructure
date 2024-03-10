@@ -20,6 +20,9 @@ spec:
       values: |
         provider: cloudflare
         txtPrefix: "managed-by-external-dns-"
+        sources:
+          - ingress
+          - crd
         triggerLoopOnEvent: true
         policy: sync
         extraArgs:
